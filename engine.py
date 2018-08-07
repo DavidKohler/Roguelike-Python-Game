@@ -190,26 +190,45 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             previous_game_state = GameStates.PLAYERS_TURN
             game_state = GameStates.SELLING
 
-        if sell_index is not None and previous_game_state != GameStates.PLAYER_DEAD:
+        if sell_index is not None and previous_game_state != GameStates.PLAYER_DEAD and\
+                game_state == GameStates.SELLING:
+            
+            for entity in entities:
+                if entity.shopkeep:
+                    item_cost = player.inventory.items[sell_index].cashable.coin
+                    player.fighter.coin += item_cost
+                    message_log.add_message(Message('You sell {0} for {1} coins.'\
+                        .format(player.inventory.items[sell_index].name, item_cost),
+                        libtcod.blue))
+                    player.inventory.remove_item(player.inventory.items[sell_index])
 
-            if game_state == GameStates.SELLING:
-                for entity in entities:
-                    if entity.shopkeep:
-                        player.inventory.remove_item(player.inventory.items[sell_index])
-                        break
+                    break
+
             game_state = GameStates.PLAYERS_TURN
 
         if shop_buy:
             previous_game_state = GameStates.PLAYERS_TURN
             game_state = GameStates.BUYING
 
-        if buy_index is not None and previous_game_state != GameStates.PLAYER_DEAD:
+        if buy_index is not None and previous_game_state != GameStates.PLAYER_DEAD and\
+                game_state == GameStates.BUYING:
 
-            if game_state == GameStates.BUYING:
-                for entity in entities:
-                    if entity.shopkeep:
+            for entity in entities:
+                if entity.shopkeep:
+                    player_coin = player.fighter.coin
+                    item_cost = entity.inventory.items[buy_index].cashable.coin
+                    if player_coin >= item_cost:
                         player.inventory.add_item(entity.inventory.items[buy_index])
-                        break
+                        player.fighter.coin -= item_cost
+                        message_log.add_message(Message('You buy {0} for {1} coins.'\
+                            .format(entity.inventory.items[buy_index].name, item_cost),
+                            libtcod.blue))
+                    else:
+                        message_log.add_message(Message('You don\'t have enough coins!',
+                            libtcod.yellow))
+
+                    break
+
             game_state = GameStates.PLAYERS_TURN
 
         if exit:

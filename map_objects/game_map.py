@@ -1,6 +1,7 @@
 import libtcodpy as libtcod
 
 from components.ai import BasicMonster
+from components.cashable import Cashable
 from components.equipment import EquipmentSlots
 from components.equippable import Equippable
 from components.fighter import Fighter
@@ -96,9 +97,11 @@ class GameMap:
 
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
                         power_bonus=-10, defense_bonus=-10, max_hp_bonus=50)
+                    cashable_component = Cashable(5)
                     item = Entity(x, y, 'b', libtcod.Color(149, 104, 26),
-                        'Fresh Timbs (-10P -10D +50HP)', equippable=equippable_component)
-                        
+                        'Fresh Timbs (-10P -10D +50HP)', equippable=equippable_component,
+                        cashable=cashable_component)
+
                     shopkeeper.inventory.add_item(item)
                     entities.append(shopkeeper)
                     self.tiles[new_x+1][new_y+1].blocked = True

@@ -12,7 +12,7 @@ class Entity:
     def __init__(self, x, y, char, color, name, blocks=False,
             render_order=RenderOrder.CORPSE, fighter=None, ai=None, item=None,
             inventory=None, stairs=None, level=None, equipment=None, equippable=None,
-            shopkeep=None):
+            shopkeep=None, cashable=None):
         self.x = x
         self.y = y
         self.char = char
@@ -29,6 +29,7 @@ class Entity:
         self.equipment = equipment
         self.equippable = equippable
         self.shopkeep = shopkeep
+        self.cashable = cashable
 
         if self.fighter:
             self.fighter.owner = self
@@ -62,6 +63,14 @@ class Entity:
         if self.shopkeep:
             self.shopkeep.owner = self
             self.blocks = True
+
+        if self.cashable:
+            self.cashable.owner = self
+
+            if not self.item:
+                item = Item()
+                self.item = item
+                self.item.owner = self
 
     def move(self, dx, dy):
         # Move the entity by a given amount
