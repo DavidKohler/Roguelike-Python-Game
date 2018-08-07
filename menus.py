@@ -58,15 +58,17 @@ def inventory_menu(con, header, player, inventory_width, screen_width, screen_he
             elif player.equipment.belt == item:
                 options.append('{0} (on waist)'.format(item.name))
             elif player.equipment.ring_1 == item:
-                options.append('{0} (on first finger)'.format(item.name))
+                options.append('{0} (first finger)'.format(item.name))
             elif player.equipment.ring_2 == item:
-                options.append('{0} (on second finger)'.format(item.name))
+                options.append('{0} (second finger)'.format(item.name))
             elif player.equipment.ring_3 == item:
-                options.append('{0} (on third finger)'.format(item.name))
+                options.append('{0} (third finger)'.format(item.name))
             elif player.equipment.ring_4 == item:
-                options.append('{0} (on fourth finger)'.format(item.name))
+                options.append('{0} (fourth finger)'.format(item.name))
             elif player.equipment.ring_5 == item:
-                options.append('{0} (on fifth finger)'.format(item.name))
+                options.append('{0} (fifth finger)'.format(item.name))
+            elif play.equipment.ring_6 == item:
+                options.append('{0} (on hand)'.format(item.name))
             else:
                 options.append(item.name)
 
@@ -77,7 +79,7 @@ def main_menu(con, background_image, screen_width, screen_height):
 
     libtcod.console_set_default_foreground(0, libtcod.light_yellow)
     libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 4,
-        libtcod.BKGND_NONE, libtcod.CENTER, 'ICE MINES OF TITAN')
+        libtcod.BKGND_NONE, libtcod.CENTER, 'DESCENT INTO JOTUNHEIM')
     libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height - 2),
         libtcod.BKGND_NONE, libtcod.CENTER, 'By David Kohler')
 
