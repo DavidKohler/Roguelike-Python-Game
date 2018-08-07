@@ -10,9 +10,9 @@ class RenderOrder(Enum):
     '''
     Enumerates render order
     '''
-    STAIRS = 1
-    CORPSE = 2
-    ITEM = 3
+    CORPSE = 1
+    ITEM = 2
+    STAIRS = 3
     ACTOR = 4
 
 '''
