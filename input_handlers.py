@@ -19,6 +19,12 @@ def handle_keys(key, game_state):
         return handle_level_up_menu(key)
     elif game_state == GameStates.CHARACTER_SCREEN:
         return handle_character_screen(key)
+    elif game_state == GameStates.ENTER_SHOP:
+        return handle_enter_shop(key)
+    elif game_state == GameStates.SELLING:
+        return handle_selling(key)
+    elif game_state == GameStates.BUYING:
+        return handle_buying(key)
     return {}
 
 def handle_player_turn_keys(key):
@@ -105,6 +111,48 @@ def handle_targeting_keys(key):
 
 def handle_character_screen(key):
     if key.vk == libtcod.KEY_ESCAPE:
+        return {'exit': True}
+
+    return {}
+
+def handle_enter_shop(key):
+    key_char = chr(key.c)
+
+    if key_char == 'a':
+        return {'shop_sell': True}
+    elif key_char == 'b':
+        return {'shop_buy': True}
+    elif key_char == 'c' or  key.vk == libtcod.KEY_ESCAPE:
+        return {'exit': True}
+
+    return {}
+
+def handle_selling(key):
+    index = key.c - ord('a')
+
+    if index >= 0:
+        return {'sell_index': index}
+
+    if key.vk == libtcod.KEY_ENTER and key.lalt:
+        # Alt+Enter: toggle full screen
+        return {'fullscreen': True}
+    elif key.vk == libtcod.KEY_ESCAPE:
+        # Exit the menu
+        return {'exit': True}
+
+    return {}
+
+def handle_buying(key):
+    index = key.c - ord('a')
+
+    if index >= 0:
+        return {'buy_index': index}
+
+    if key.vk == libtcod.KEY_ENTER and key.lalt:
+        # Alt+Enter: toggle full screen
+        return {'fullscreen': True}
+    elif key.vk == libtcod.KEY_ESCAPE:
+        # Exit the menu
         return {'exit': True}
 
     return {}

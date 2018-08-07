@@ -131,3 +131,21 @@ def character_screen(player, character_screen_width, character_screen_height,
 
 def message_box(con, header, width, screen_width, screen_height):
     menu(con, header, [], width, screen_width, screen_height)
+
+def enter_shop_menu(con, header, player, menu_width, screen_width, screen_height):
+    options = ['Sell', 'Buy', 'Exit']
+    menu(con, header, options, menu_width, screen_width, screen_height)
+
+def sell_menu(con, header, player, inventory_width, screen_width, screen_height):
+    # show a menu with each item of the inventory as an option
+    options = []
+    for item in player.inventory.items:
+        options.append(item.name)
+    menu(con, header, options, inventory_width, screen_width, screen_height)
+
+def buy_menu(con, header, shopkeeper, inventory_width, screen_width, screen_height):
+    # show a menu with each item of the inventory as an option
+    options = []
+    for item in shopkeeper.inventory.items:
+        options.append(item.name)
+    menu(con, header, options, inventory_width, screen_width, screen_height)

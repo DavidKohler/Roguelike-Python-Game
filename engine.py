@@ -69,6 +69,10 @@ def play_game(player, entities, game_map, message_log, game_state, con,
         level_up = action.get('level_up')
         show_character_screen = action.get('show_character_screen')
         shop = action.get('shop')
+        shop_sell = action.get('shop_sell')
+        shop_buy = action.get('shop_buy')
+        sell_index = action.get('sell_index')
+        buy_index = action.get('buy_index')
         exit = action.get('exit')
         fullscreen = action.get('fullscreen')
 
@@ -182,9 +186,35 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                 message_log.add_message(Message('There is no shopkeeper here.',
                     libtcod.yellow))
 
+        if shop_sell:
+            previous_game_state = GameStates.PLAYERS_TURN
+            game_state = GameStates.SELLING
+
+        if sell_index is not None and previous_game_state != GameStates.PLAYER_DEAD:
+
+            if game_state == GameStates.SELLING:
+                for entity in entities:
+                    if entity.shopkeep:
+                        player.inventory.remove_item(player.inventory.items[sell_index])
+                        break
+            game_state = GameStates.PLAYERS_TURN
+
+        if shop_buy:
+            previous_game_state = GameStates.PLAYERS_TURN
+            game_state = GameStates.BUYING
+
+        if buy_index is not None and previous_game_state != GameStates.PLAYER_DEAD:
+
+            if game_state == GameStates.BUYING:
+                for entity in entities:
+                    if entity.shopkeep:
+                        player.inventory.add_item(entity.inventory.items[buy_index])
+                        break
+            game_state = GameStates.PLAYERS_TURN
+
         if exit:
             if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY,
-                    GameStates.CHARACTER_SCREEN, GameStates.ENTER_SHOP):
+                    GameStates.CHARACTER_SCREEN, GameStates.ENTER_SHOP, GameStates.BUYING):
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})

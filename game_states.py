@@ -12,3 +12,6 @@ class GameStates(Enum):
     TARGETING = 6
     LEVEL_UP = 7
     CHARACTER_SCREEN = 8
+    ENTER_SHOP = 9
+    SELLING = 10
+    BUYING = 11

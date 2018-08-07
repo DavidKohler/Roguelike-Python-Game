@@ -5,6 +5,7 @@ from components.equipment import EquipmentSlots
 from components.equippable import Equippable
 from components.fighter import Fighter
 from components.item import Item
+from components.inventory import Inventory
 from components.shopkeep import Shopkeep
 from components.stairs import Stairs
 
@@ -88,11 +89,17 @@ class GameMap:
                     player.y = new_y
 
                     shopkeep_component = Shopkeep(100000)
-
+                    inventory_component = Inventory(50)
                     shopkeeper = Entity(new_x+1, new_y+1, '$', libtcod.Color(5, 5, 5),
                         'Shopkeeper', blocks=True,render_order=RenderOrder.ACTOR,
-                        shopkeep = shopkeep_component)
+                        shopkeep=shopkeep_component, inventory=inventory_component)
 
+                    equippable_component = Equippable(EquipmentSlots.BOOTS,
+                        power_bonus=-10, defense_bonus=-10, max_hp_bonus=50)
+                    item = Entity(x, y, 'b', libtcod.Color(149, 104, 26),
+                        'Fresh Timbs (-10P -10D +50HP)', equippable=equippable_component)
+                        
+                    shopkeeper.inventory.add_item(item)
                     entities.append(shopkeeper)
                     self.tiles[new_x+1][new_y+1].blocked = True
                 else:
