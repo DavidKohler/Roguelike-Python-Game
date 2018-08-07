@@ -1,5 +1,9 @@
 from random import randint
 
+'''
+Utilities for random selection
+'''
+
 def from_dungeon_level(table, dungeon_level):
     for (value, level) in reversed(table):
         if dungeon_level >= level:

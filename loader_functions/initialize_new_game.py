@@ -1,16 +1,16 @@
 import libtcodpy as libtcod
 
+from components.equipment import Equipment
+from components.equippable import Equippable
 from components.fighter import Fighter
 from components.inventory import Inventory
 from components.level import Level
-from components.equipment import Equipment
-from components.equippable import Equippable
 
 from entity import Entity
 
-from game_messages import MessageLog
-
 from equipment_slots import EquipmentSlots
+
+from game_messages import MessageLog
 
 from game_states import GameStates
 
@@ -18,8 +18,14 @@ from map_objects.game_map import GameMap
 
 from render_functions import RenderOrder
 
+'''
+Initializes new instance of game
+'''
+
+DEBUG = 1
+
 def get_constants():
-    window_title = 'Roguelike Tutorial Revised'
+    window_title = 'Ice Mines of Titan'
 
     screen_width = 80
     screen_height = 50
@@ -47,10 +53,10 @@ def get_constants():
     max_items_per_room = 2
 
     colors = {
-        'dark_wall': libtcod.Color(0, 0, 100),
-        'dark_ground': libtcod.Color(50, 50, 150),
-        'light_wall': libtcod.Color(130, 110, 50),
-        'light_ground': libtcod.Color(200, 180, 50)
+        'dark_wall': libtcod.Color(50, 0, 100),
+        'dark_ground': libtcod.Color(75, 25, 100),
+        'light_wall': libtcod.Color(39, 89, 122),
+        'light_ground': libtcod.Color(94, 136, 164)
     }
 
     constants = {
@@ -79,7 +85,10 @@ def get_constants():
     return constants
 
 def get_game_variables(constants):
-    fighter_component = Fighter(hp=100, defense=1, power=2)
+    if DEBUG == 1:
+        fighter_component = Fighter(hp=1000, defense=100, power=20)
+    else:
+        fighter_component = Fighter(hp=100, defense=1, power=2)
     inventory_component = Inventory(26)
     level_component = Level()
     equipment_component = Equipment()
@@ -92,7 +101,7 @@ def get_game_variables(constants):
     dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', equippable=equippable_component)
     player.inventory.add_item(dagger)
     player.equipment.toggle_equip(dagger)
-    
+
     game_map = GameMap(constants['map_width'], constants['map_height'])
     game_map.make_map(constants['max_rooms'], constants['room_min_size'], constants['room_max_size'],
                       constants['map_width'], constants['map_height'], player, entities)

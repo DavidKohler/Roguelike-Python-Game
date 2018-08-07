@@ -9,7 +9,9 @@ class Entity:
     """
     A generic object to represent players, enemies, items, etc.
     """
-    def __init__(self, x, y, char, color, name, blocks=False, render_order=RenderOrder.CORPSE, fighter=None, ai=None, item=None, inventory=None, stairs=None, level=None, equipment=None, equippable=None):
+    def __init__(self, x, y, char, color, name, blocks=False,
+            render_order=RenderOrder.CORPSE, fighter=None, ai=None, item=None,
+            inventory=None, stairs=None, level=None, equipment=None, equippable=None):
         self.x = x
         self.y = y
         self.char = char
@@ -69,21 +71,26 @@ class Entity:
         dy = int(round(dy / distance))
 
         if not (game_map.is_blocked(self.x + dx, self.y + dy) or
-                    get_blocking_entities_at_location(entities, self.x + dx, self.y + dy)):
+                    get_blocking_entities_at_location(entities, self.x + dx,
+                        self.y + dy)):
             self.move(dx, dy)
 
     def distance(self, x, y):
         return math.sqrt((x - self.x) ** 2 + (y - self.y) ** 2)
 
     def move_astar(self, target, entities, game_map):
+        '''
+        A* algorithm from RogueBasin for enemy pathfinding
+        '''
         # Create a FOV map that has the dimensions of the map
         fov = libtcod.map_new(game_map.width, game_map.height)
 
         # Scan the current map each turn and set all the walls as unwalkable
         for y1 in range(game_map.height):
             for x1 in range(game_map.width):
-                libtcod.map_set_properties(fov, x1, y1, not game_map.tiles[x1][y1].block_sight,
-                                           not game_map.tiles[x1][y1].blocked)
+                libtcod.map_set_properties(fov, x1, y1,
+                        not game_map.tiles[x1][y1].block_sight,
+                        not game_map.tiles[x1][y1].blocked)
 
         # Scan all the objects to see if there are objects that must be navigated around
         # Check also that the object isn't self or the target (so that the start and the end points are free)

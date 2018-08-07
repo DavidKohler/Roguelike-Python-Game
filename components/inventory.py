@@ -3,6 +3,9 @@ import libtcodpy as libtcod
 from game_messages import Message
 
 class Inventory:
+    '''
+    Component of player that allows for inventory
+    '''
     def __init__(self, capacity):
         self.capacity = capacity
         self.items = []
@@ -24,6 +27,24 @@ class Inventory:
             self.items.append(item)
 
         return results
+
+    def drop_item(self, item):
+        results = []
+
+        if self.owner.equipment.main_hand == item or self.owner.equipment.off_hand == item:
+            self.owner.equipment.toggle_equip(item)
+
+        item.x = self.owner.x
+        item.y = self.owner.y
+
+        self.remove_item(item)
+        results.append({'item_dropped': item, 'message': Message('You dropped the {0}'.format(item.name),
+                                                                 libtcod.yellow)})
+
+        return results
+
+    def remove_item(self, item):
+        self.items.remove(item)
 
     def use(self, item_entity, **kwargs):
         results = []
@@ -49,23 +70,5 @@ class Inventory:
                         self.remove_item(item_entity)
 
                 results.extend(item_use_results)
-
-        return results
-
-    def remove_item(self, item):
-        self.items.remove(item)
-
-    def drop_item(self, item):
-        results = []
-
-        if self.owner.equipment.main_hand == item or self.owner.equipment.off_hand == item:
-            self.owner.equipment.toggle_equip(item)
-
-        item.x = self.owner.x
-        item.y = self.owner.y
-
-        self.remove_item(item)
-        results.append({'item_dropped': item, 'message': Message('You dropped the {0}'.format(item.name),
-                                                                 libtcod.yellow)})
 
         return results

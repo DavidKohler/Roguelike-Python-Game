@@ -1,4 +1,7 @@
 class Item:
+    '''
+    Component defines entity as an item
+    '''
     def __init__(self, use_function=None, targeting=False, targeting_message=None, **kwargs):
         self.use_function = use_function
         self.targeting = targeting

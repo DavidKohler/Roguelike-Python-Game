@@ -5,6 +5,9 @@ from random import randint
 from game_messages import Message
 
 class BasicMonster:
+    '''
+    Simple AI for non-confused monster
+    '''
     def take_turn(self, target, fov_map, game_map, entities):
         results = []
         monster = self.owner
@@ -20,6 +23,9 @@ class BasicMonster:
         return results
 
 class ConfusedMonster:
+    '''
+    AI for confused monster
+    '''
     def __init__(self, previous_ai, number_of_turns=10):
         self.previous_ai = previous_ai
         self.number_of_turns = number_of_turns
@@ -37,6 +43,8 @@ class ConfusedMonster:
             self.number_of_turns -= 1
         else:
             self.owner.ai = self.previous_ai
-            results.append({'message': Message('The {0} is no longer confused!'.format(self.owner.name), libtcod.red)})
+            results.append({'message':
+                Message('The {0} is no longer confused!'.format(self.owner.name),
+                libtcod.red)})
 
         return results

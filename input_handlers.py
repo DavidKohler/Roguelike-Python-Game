@@ -2,6 +2,9 @@ import libtcodpy as libtcod
 
 from game_states import GameStates
 
+'''
+Handles all inputs
+'''
 
 def handle_keys(key, game_state):
     if game_state == GameStates.PLAYERS_TURN:

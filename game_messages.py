@@ -1,12 +1,19 @@
 import libtcodpy as libtcod
+
 import textwrap
 
 class Message:
+    '''
+    Basic message object
+    '''
     def __init__(self, text, color=libtcod.white):
         self.text = text
         self.color = color
 
 class MessageLog:
+    '''
+    Allows keeping log of message
+    '''
     def __init__(self, x, width, height):
         self.messages = []
         self.x = x

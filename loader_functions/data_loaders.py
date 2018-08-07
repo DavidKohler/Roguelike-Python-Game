@@ -2,6 +2,9 @@ import os
 
 import shelve
 
+'''
+Basic save and load functions using shelve library
+'''
 
 def save_game(player, entities, game_map, message_log, game_state):
     with shelve.open('savegame', 'n') as data_file:
@@ -14,7 +17,6 @@ def save_game(player, entities, game_map, message_log, game_state):
 
 def load_game():
     if not (os.path.isfile('savegame.dat') or (os.path.isfile('savegame.db'))):
-        print('nooooo')
         raise FileNotFoundError
 
     with shelve.open('savegame', 'r') as data_file:
