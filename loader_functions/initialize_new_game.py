@@ -22,7 +22,7 @@ from render_functions import RenderOrder
 Initializes new instance of game
 '''
 
-DEBUG = 1
+DEBUG = 0
 
 def get_constants():
     window_title = 'Descent Into Jotunheim'

@@ -11,7 +11,7 @@ from entity import Entity
 
 from game_messages import Message
 
-from item_functions import cast_confuse, cast_fireball, cast_lightning, cast_mistletoe, cast_ragnarok, heal 
+from item_functions import cast_confuse, cast_fireball, cast_lightning, cast_mistletoe, cast_ragnarok, heal
 
 from map_objects.rectangle import Rect
 from map_objects.tile import Tile
@@ -139,77 +139,77 @@ class GameMap:
 
         item_chances = {
             #HELMET
-            'light_helm': from_dungeon_level([[5, 2], [0, 6]], self.dungeon_level),
-            'medium_helm': from_dungeon_level([[5, 6], [0, 10]], self.dungeon_level),
-            'dwarven_helm': from_dungeon_level([[5, 10], [0, 15]], self.dungeon_level),
-            'valkyrie_helm': from_dungeon_level([[5, 15], [0, 20]], self.dungeon_level),
-            'helm_of_awe': from_dungeon_level([[5, 25]], self.dungeon_level),
-            'hulidshjalmr': from_dungeon_level([[4, 30]], self.dungeon_level),
+            'light_helm': from_dungeon_level([[5, 2], [0, 9]], self.dungeon_level),
+            'medium_helm': from_dungeon_level([[5, 8], [0, 16]], self.dungeon_level),
+            'dwarven_helm': from_dungeon_level([[5, 15], [0, 22]], self.dungeon_level),
+            'valkyrie_helm': from_dungeon_level([[5, 21], [0, 31]], self.dungeon_level),
+            'helm_of_awe': from_dungeon_level([[5, 30]], self.dungeon_level),
+            'hulidshjalmr': from_dungeon_level([[5, 40]], self.dungeon_level),
             #CHESTPLATE
-            'leather_chestplate': from_dungeon_level([[5, 2], [0, 6]], self.dungeon_level),
-            'chainmail': from_dungeon_level([[5, 5], [0, 10]], self.dungeon_level),
-            'dwarven_chestplate': from_dungeon_level([[5, 9], [0, 15]], self.dungeon_level),
-            'falcon_cloak': from_dungeon_level([[5, 12], [0, 20]], self.dungeon_level),
-            'tarnkappe': from_dungeon_level([[5, 20]], self.dungeon_level),
-            'golden_coat': from_dungeon_level([[4, 25]], self.dungeon_level),
+            'leather_chestplate': from_dungeon_level([[5, 2], [0, 9]], self.dungeon_level),
+            'chainmail': from_dungeon_level([[5, 8], [0, 16]], self.dungeon_level),
+            'dwarven_chestplate': from_dungeon_level([[5, 15], [0, 22]], self.dungeon_level),
+            'falcon_cloak': from_dungeon_level([[5, 21], [0, 31]], self.dungeon_level),
+            'tarnkappe': from_dungeon_level([[5, 30]], self.dungeon_level),
+            'golden_coat': from_dungeon_level([[5, 37]], self.dungeon_level),
             #LEGGINGS
-            'light_leggings': from_dungeon_level([[5, 2], [0, 5]], self.dungeon_level),
-            'chain_leggings': from_dungeon_level([[5, 6], [0, 12]], self.dungeon_level),
-            'dwarven_leggings': from_dungeon_level([[5, 12], [0, 18]], self.dungeon_level),
-            'leggings_of_baldur': from_dungeon_level([[5, 20]], self.dungeon_level),
-            'leggings_of_odin': from_dungeon_level([[4, 30]], self.dungeon_level),
+            'light_leggings': from_dungeon_level([[5, 2], [0, 10]], self.dungeon_level),
+            'chain_leggings': from_dungeon_level([[5, 9], [0, 18]], self.dungeon_level),
+            'dwarven_leggings': from_dungeon_level([[5, 17], [0, 28]], self.dungeon_level),
+            'leggings_of_baldur': from_dungeon_level([[5, 27]], self.dungeon_level),
+            'leggings_of_odin': from_dungeon_level([[5, 35]], self.dungeon_level),
             #BOOTS
-            'light_boots': from_dungeon_level([[5, 2], [0, 5]], self.dungeon_level),
-            'timbs': from_dungeon_level([[500, 1]], self.dungeon_level),
-            'steel_boots': from_dungeon_level([[5, 6], [0, 12]], self.dungeon_level),
-            'dwarven_boots': from_dungeon_level([[5, 11], [0, 17]], self.dungeon_level),
-            'helskor': from_dungeon_level([[5, 20]], self.dungeon_level),
-            'shoes_of_vidarr': from_dungeon_level([[4, 25]], self.dungeon_level),
+            'light_boots': from_dungeon_level([[5, 2], [0, 11]], self.dungeon_level),
+            'timbs': from_dungeon_level([[1, 5]], self.dungeon_level),
+            'steel_boots': from_dungeon_level([[5, 10], [0, 19]], self.dungeon_level),
+            'dwarven_boots': from_dungeon_level([[5, 18], [0, 27]], self.dungeon_level),
+            'helskor': from_dungeon_level([[5, 26]], self.dungeon_level),
+            'shoes_of_vidarr': from_dungeon_level([[5, 30]], self.dungeon_level),
             #BELT
-            'leather_belt': from_dungeon_level([[5, 2], [0, 7]], self.dungeon_level),
-            'girdle_of_brynhilder': from_dungeon_level([[5, 7], [0, 20]], self.dungeon_level),
-            'megingjord': from_dungeon_level([[5, 20]], self.dungeon_level),
+            'leather_belt': from_dungeon_level([[5, 2], [0, 16]], self.dungeon_level),
+            'girdle_of_brynhilder': from_dungeon_level([[5, 15], [0, 31]], self.dungeon_level),
+            'megingjord': from_dungeon_level([[5, 30]], self.dungeon_level),
             #RINGS
-            'space_stone': from_dungeon_level([[3, 2]], self.dungeon_level),
-            'mind_stone': from_dungeon_level([[3, 6]], self.dungeon_level),
-            'reality_stone': from_dungeon_level([[3, 12]], self.dungeon_level),
-            'power_stone': from_dungeon_level([[3, 20]], self.dungeon_level),
-            'time_stone': from_dungeon_level([[3, 25]], self.dungeon_level),
-            'soul_stone': from_dungeon_level([[3, 30]], self.dungeon_level),
+            'space_stone': from_dungeon_level([[2, 2]], self.dungeon_level),
+            'mind_stone': from_dungeon_level([[2, 8]], self.dungeon_level),
+            'reality_stone': from_dungeon_level([[2, 16]], self.dungeon_level),
+            'power_stone': from_dungeon_level([[2, 24]], self.dungeon_level),
+            'time_stone': from_dungeon_level([[2, 30]], self.dungeon_level),
+            'soul_stone': from_dungeon_level([[2, 36]], self.dungeon_level),
             #OFF_HAND
-            'wooden_shield': from_dungeon_level([[15, 4], [0, 10]], self.dungeon_level),
-            'sturdy_shield': from_dungeon_level([[15, 10], [0, 14]], self.dungeon_level),
-            'dwarven_shield': from_dungeon_level([[10, 14], [0, 18]], self.dungeon_level),
-            'jotun_shield': from_dungeon_level([[10, 18], [0, 20]], self.dungeon_level),
-            'shield_of_hel': from_dungeon_level([[7, 20], [0, 25]], self.dungeon_level),
-            'ullrs_shield': from_dungeon_level([[5, 25]], self.dungeon_level),
-            'svallin': from_dungeon_level([[3, 30]], self.dungeon_level),
+            'wooden_shield': from_dungeon_level([[15, 4], [0, 11]], self.dungeon_level),
+            'sturdy_shield': from_dungeon_level([[15, 10], [0, 18]], self.dungeon_level),
+            'dwarven_shield': from_dungeon_level([[10, 17], [0, 26]], self.dungeon_level),
+            'jotun_shield': from_dungeon_level([[10, 25], [0, 31]], self.dungeon_level),
+            'shield_of_hel': from_dungeon_level([[7, 30], [0, 36]], self.dungeon_level),
+            'ullrs_shield': from_dungeon_level([[5, 35]], self.dungeon_level),
+            'svallin': from_dungeon_level([[5, 38]], self.dungeon_level),
             #MAIN_HAND
             'iron_sword': from_dungeon_level([[10, 4], [0, 8]], self.dungeon_level),
-            'berserker_sword': from_dungeon_level([[10, 7], [0, 11]], self.dungeon_level),
-            'dwarven_axe': from_dungeon_level([[7, 10], [0, 14]], self.dungeon_level),
-            'viking_halberd': from_dungeon_level([[5, 12], [0, 15]], self.dungeon_level),
-            'laevateinn': from_dungeon_level([[5, 8], [0, 12]], self.dungeon_level),
-            'dainsleif': from_dungeon_level([[4, 12], [0, 18]], self.dungeon_level),
-            'skofnung': from_dungeon_level([[4, 15], [0, 20]], self.dungeon_level),
-            'hrotti': from_dungeon_level([[3, 20], [0, 27]], self.dungeon_level),
-            'ridill': from_dungeon_level([[3, 20], [0, 27]], self.dungeon_level),
-            'gram': from_dungeon_level([[3, 25], [0, 32]], self.dungeon_level),
-            'mistilteinn': from_dungeon_level([[3, 25], [0, 35]], self.dungeon_level),
-            'gungnir': from_dungeon_level([[3, 30]], self.dungeon_level),
-            'tyrfing': from_dungeon_level([[3, 30]], self.dungeon_level),
-            'mjolnir': from_dungeon_level([[1, 30]], self.dungeon_level),
+            'berserker_sword': from_dungeon_level([[10, 7], [0, 13]], self.dungeon_level),
+            'dwarven_axe': from_dungeon_level([[7, 12], [0, 16]], self.dungeon_level),
+            'viking_halberd': from_dungeon_level([[5, 15], [0, 21]], self.dungeon_level),
+            'laevateinn': from_dungeon_level([[5, 10], [0, 16]], self.dungeon_level),
+            'dainsleif': from_dungeon_level([[5, 15], [0, 21]], self.dungeon_level),
+            'skofnung': from_dungeon_level([[5, 20], [0, 26]], self.dungeon_level),
+            'hrotti': from_dungeon_level([[5, 25], [0, 32]], self.dungeon_level),
+            'ridill': from_dungeon_level([[5, 25], [0, 32]], self.dungeon_level),
+            'gram': from_dungeon_level([[5, 30], [0, 40]], self.dungeon_level),
+            'mistilteinn': from_dungeon_level([[5, 30], [0, 42]], self.dungeon_level),
+            'gungnir': from_dungeon_level([[4, 38]], self.dungeon_level),
+            'tyrfing': from_dungeon_level([[4, 38]], self.dungeon_level),
+            'mjolnir': from_dungeon_level([[5, 42]], self.dungeon_level),
             #POTION
-            's_healing_potion': from_dungeon_level([[40, 1], [0, 20]], self.dungeon_level),
-            'm_healing_potion': from_dungeon_level([[25, 15], [0, 30]], self.dungeon_level),
-            'l_healing_potion': from_dungeon_level([[20, 25]], self.dungeon_level),
-            'full_healing_salve': from_dungeon_level([[10, 30]], self.dungeon_level),
+            's_healing_potion': from_dungeon_level([[40, 1], [0, 15]], self.dungeon_level),
+            'm_healing_potion': from_dungeon_level([[35, 15], [0, 30]], self.dungeon_level),
+            'l_healing_potion': from_dungeon_level([[30, 30]], self.dungeon_level),
+            'full_healing_salve': from_dungeon_level([[20, 40]], self.dungeon_level),
             #SCROLL
-            'confusion_scroll': from_dungeon_level([[20, 2], [10, 8]], self.dungeon_level),
-            'lightning_scroll': from_dungeon_level([[20, 5], [15, 9]], self.dungeon_level),
-            'fireball_scroll': from_dungeon_level([[15, 9]], self.dungeon_level),
-            'mistletoe': from_dungeon_level([[10, 14]], self.dungeon_level),
-            'ragnarok': from_dungeon_level([[8, 20]], self.dungeon_level)
+            'confusion_scroll': from_dungeon_level([[20, 2], [10, 9]], self.dungeon_level),
+            'lightning_scroll': from_dungeon_level([[20, 8], [10, 17]], self.dungeon_level),
+            'fireball_scroll': from_dungeon_level([[15, 16], [10, 23]], self.dungeon_level),
+            'mistletoe': from_dungeon_level([[12, 22]], self.dungeon_level),
+            'ragnarok': from_dungeon_level([[5, 30]], self.dungeon_level)
         }
 
         for i in range(number_of_monsters):
@@ -249,17 +249,17 @@ class GameMap:
                 if item_choice == 's_healing_potion':
                     item_component = Item(use_function=heal, amount=35)
                     item = Entity(x, y, '+', libtcod.Color(208, 15, 15),
-                        'Small Healing Potion', render_order=RenderOrder.ITEM,
+                        'Small Healing Potion (+35)', render_order=RenderOrder.ITEM,
                         item=item_component)
                 elif item_choice == 'm_healing_potion':
                     item_component = Item(use_function=heal, amount=70)
                     item = Entity(x, y, '+', libtcod.Color(220, 15, 15),
-                        'Medium Healing Potion', render_order=RenderOrder.ITEM,
+                        'Medium Healing Potion (+70)', render_order=RenderOrder.ITEM,
                         item=item_component)
                 elif item_choice == 'l_healing_potion':
                     item_component = Item(use_function=heal, amount=100)
                     item = Entity(x, y, '+', libtcod.Color(240, 10, 10),
-                        'Large Healing Potion', render_order=RenderOrder.ITEM,
+                        'Large Healing Potion (+100)', render_order=RenderOrder.ITEM,
                         item=item_component)
                 elif item_choice == 'full_healing_salve':
                     item_component = Item(use_function=heal, amount=800)
@@ -269,101 +269,101 @@ class GameMap:
                 #HELMET
                 elif item_choice == 'light_helm':
                     equippable_component = Equippable(EquipmentSlots.HELMET,
-                        defense_bonus=2)
+                        defense_bonus=1)
                     item = Entity(x, y, 'n', libtcod.Color(96, 98, 114),
-                        'Light Helm (+2D)', equippable=equippable_component)
+                        'Light Helm (+1D)', equippable=equippable_component)
                 elif item_choice == 'medium_helm':
                     equippable_component = Equippable(EquipmentSlots.HELMET,
-                        defense_bonus=4)
+                        defense_bonus=2)
                     item = Entity(x, y, 'n', libtcod.Color(100, 100, 110),
-                        'Medium Helm (+4D)', equippable=equippable_component)
+                        'Medium Helm (+2D)', equippable=equippable_component)
                 elif item_choice == 'dwarven_helm':
                     equippable_component = Equippable(EquipmentSlots.HELMET,
-                        defense_bonus=6, max_hp_bonus=10)
+                        defense_bonus=4, max_hp_bonus=10)
                     item = Entity(x, y, 'n', libtcod.Color(27, 35, 107),
-                        'Dwarven Helm (+6D +10HP)', equippable=equippable_component)
+                        'Dwarven Helm (+4D +10HP)', equippable=equippable_component)
                 elif item_choice == 'valkyrie_helm':
                     equippable_component = Equippable(EquipmentSlots.HELMET,
-                        defense_bonus=8, power_bonus=8)
+                        defense_bonus=6, power_bonus=6)
                     item = Entity(x, y, 'n', libtcod.Color(114, 80, 13),
-                        'Valkyrie Helm (+8D +8P)', equippable=equippable_component)
+                        'Valkyrie Helm (+6D +6P)', equippable=equippable_component)
                 elif item_choice == 'helm_of_awe':
                     equippable_component = Equippable(EquipmentSlots.HELMET,
-                        defense_bonus=12, max_hp_bonus=30)
+                        defense_bonus=8, max_hp_bonus=30)
                     item = Entity(x, y, 'n', libtcod.Color(20, 77, 18),
-                        'Helm of Awe (+12D +30HP)', equippable=equippable_component)
+                        'Helm of Awe (+8D +30HP)', equippable=equippable_component)
                 elif item_choice == 'hulidshjalmr':
                     equippable_component = Equippable(EquipmentSlots.HELMET,
-                        defense_bonus=15, power_bonus=5, max_hp_bonus=20)
+                        defense_bonus=12, power_bonus=5, max_hp_bonus=20)
                     item = Entity(x, y, 'n', libtcod.Color(164, 154, 20),
-                        'Hulidshjalmr (+15D +5P +20HP)', equippable=equippable_component)
+                        'Hulidshjalmr (+12D +5P +20HP)', equippable=equippable_component)
                 #CHESTPLATE
                 elif item_choice == 'leather_chestplate':
                     equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
-                        defense_bonus=2)
+                        defense_bonus=1)
                     item = Entity(x, y, 'W', libtcod.Color(104, 69, 7),
-                        'Leather Chestplate (+2D)', equippable=equippable_component)
+                        'Leather Chestplate (+1D)', equippable=equippable_component)
                 elif item_choice == 'chainmail':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
-                            defense_bonus=4)
+                            defense_bonus=2)
                         item = Entity(x, y, 'W', libtcod.Color(164, 164, 164),
-                            'Chainmail Chestplate (+4D)', equippable=equippable_component)
+                            'Chainmail Chestplate (+2D)', equippable=equippable_component)
                 elif item_choice == 'dwarven_chestplate':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
-                            defense_bonus=6, max_hp_bonus=10)
+                            defense_bonus=4, max_hp_bonus=10)
                         item = Entity(x, y, 'W', libtcod.Color(41, 62, 146),
-                            'Dwarven Chestplate (+6D +10HP)', equippable=equippable_component)
+                            'Dwarven Chestplate (+4D +10HP)', equippable=equippable_component)
                 elif item_choice == 'falcon_cloak':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
-                            defense_bonus=8)
+                            defense_bonus=6)
                         item = Entity(x, y, 'W', libtcod.Color(183, 151, 94),
-                            'Falcon Cloak (+8D)', equippable=equippable_component)
+                            'Falcon Cloak (+6D)', equippable=equippable_component)
                 elif item_choice == 'tarnkappe':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
-                            defense_bonus=12, power_bonus=8, max_hp_bonus=10)
+                            defense_bonus=8, power_bonus=6, max_hp_bonus=10)
                         item = Entity(x, y, 'W', libtcod.Color(54, 45, 30),
-                            'Tarnkappe (+12D +8P +10HP)', equippable=equippable_component)
+                            'Tarnkappe (+8D +6P +10HP)', equippable=equippable_component)
                 elif item_choice == 'golden_coat':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
-                            defense_bonus=15, power_bonus=5, max_hp_bonus=20)
+                            defense_bonus=12, power_bonus=5, max_hp_bonus=20)
                         item = Entity(x, y, 'W', libtcod.Color(175, 144, 18),
-                            'Golden Coat of Chainmail (+15D +5P +20HP)',
+                            'Golden Coat of Chainmail (+12D +5P +20HP)',
                             equippable=equippable_component)
                 #LEGGINGS
                 elif item_choice == 'light_leggings':
                     equippable_component = Equippable(EquipmentSlots.LEGGINGS,
-                        defense_bonus=2)
+                        defense_bonus=1)
                     item = Entity(x, y, 'U', libtcod.Color(220, 187, 50),
-                        'Light Leggings (+2D)', equippable=equippable_component)
+                        'Light Leggings (+1D)', equippable=equippable_component)
                 elif item_choice == 'chain_leggings':
                     equippable_component = Equippable(EquipmentSlots.LEGGINGS,
-                        defense_bonus=4)
+                        defense_bonus=2)
                     item = Entity(x, y, 'U', libtcod.Color(154, 154, 154),
-                        'Chain Leggings (+4D)', equippable=equippable_component)
+                        'Chain Leggings (+2D)', equippable=equippable_component)
                 elif item_choice == 'dwarven_leggings':
                     equippable_component = Equippable(EquipmentSlots.LEGGINGS,
-                        defense_bonus=6, max_hp_bonus=10)
+                        defense_bonus=4, max_hp_bonus=10)
                     item = Entity(x, y, 'U', libtcod.Color(38, 51, 117),
-                        'Dwarven Leggings (+6D +10HP)',
+                        'Dwarven Leggings (+4D +10HP)',
                         equippable=equippable_component)
                 elif item_choice == 'leggings_of_baldur':
                     equippable_component = Equippable(EquipmentSlots.LEGGINGS,
-                        defense_bonus=18, max_hp_bonus=10)
+                        defense_bonus=6, max_hp_bonus=10)
                     item = Entity(x, y, 'U', libtcod.Color(23, 98, 53),
-                        'Leggings of Baldur (+18D +10HP)',
+                        'Leggings of Baldur (+6D +10HP)',
                         equippable=equippable_component)
                 elif item_choice == 'leggings_of_odin':
                     equippable_component = Equippable(EquipmentSlots.LEGGINGS,
-                        defense_bonus=12, power_bonus=15, max_hp_bonus=10)
+                        defense_bonus=10, power_bonus=6, max_hp_bonus=10)
                     item = Entity(x, y, 'U', libtcod.Color(152, 169, 2),
-                        'Leggings of Odin (+12D +15P +10HP)',
+                        'Leggings of Odin (+10D +6P +10HP)',
                         equippable=equippable_component)
                 #BOOTS
                 elif item_choice == 'light_boots':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
-                        defense_bonus=2)
+                        defense_bonus=1)
                     item = Entity(x, y, 'b', libtcod.Color(149, 149, 26),
-                        'Light Boots (+2D)', equippable=equippable_component)
+                        'Light Boots (+1D)', equippable=equippable_component)
                 elif item_choice == 'timbs':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
                         power_bonus=-10, defense_bonus=-10, max_hp_bonus=50)
@@ -371,31 +371,31 @@ class GameMap:
                         'Fresh Timbs (-10P -10D +50HP)', equippable=equippable_component)
                 elif item_choice == 'steel_boots':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
-                        defense_bonus=5)
+                        defense_bonus=2)
                     item = Entity(x, y, 'b', libtcod.Color(100, 100, 100),
-                        'Steel Boots (+5D)', equippable=equippable_component)
+                        'Steel Boots (+2D)', equippable=equippable_component)
                 elif item_choice == 'dwarven_boots':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
-                        defense_bonus=6, max_hp_bonus=10)
+                        defense_bonus=4, max_hp_bonus=10)
                     item = Entity(x, y, 'b', libtcod.Color(32, 32, 112),
-                        'Dwarven Boots (+6D +10HP)', equippable=equippable_component)
+                        'Dwarven Boots (+4D +10HP)', equippable=equippable_component)
                 elif item_choice == 'helskor':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
-                        defense_bonus=10, max_hp_bonus=15)
+                        defense_bonus=6, max_hp_bonus=15)
                     item = Entity(x, y, 'b', libtcod.Color(137, 29, 8),
-                        'Helskor (+10D +15HP)', equippable=equippable_component)
+                        'Helskor (+6D +15HP)', equippable=equippable_component)
                 elif item_choice == 'shoes_of_vidarr':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
-                        defense_bonus=20, max_hp_bonus=10)
+                        defense_bonus=10, max_hp_bonus=10)
                     item = Entity(x, y, 'b', libtcod.Color(137, 8, 137),
-                        'Shoes of Vidarr (+20D +10HP)',
+                        'Shoes of Vidarr (+10D +10HP)',
                         equippable=equippable_component)
                 #BELT
                 elif item_choice == 'leather_belt':
                     equippable_component = Equippable(EquipmentSlots.BELT,
-                        defense_bonus=2)
+                        defense_bonus=1)
                     item = Entity(x, y, '-', libtcod.Color(135, 94, 23),
-                        'Leather Belt (+2D)', equippable=equippable_component)
+                        'Leather Belt (+1D)', equippable=equippable_component)
                 elif item_choice == 'girdle_of_brynhilder':
                     equippable_component = Equippable(EquipmentSlots.BELT,
                         defense_bonus=2, max_hp_bonus=30)
@@ -404,94 +404,94 @@ class GameMap:
                         equippable=equippable_component)
                 elif item_choice == 'megingjord':
                     equippable_component = Equippable(EquipmentSlots.BELT,
-                        defense_bonus=8, power_bonus=15, max_hp_bonus=8)
+                        defense_bonus=5, power_bonus=10, max_hp_bonus=10)
                     item = Entity(x, y, '-', libtcod.Color(90, 90, 90),
-                        'Megingjord (+8D +15P +8HP)',
+                        'Megingjord (+5D +10P +10HP)',
                         equippable=equippable_component)
                 #RINGS
                 elif item_choice == 'space_stone':
                     equippable_component = Equippable(EquipmentSlots.RING_1,
-                        defense_bonus=5, power_bonus=5, max_hp_bonus=5)
+                        defense_bonus=1, power_bonus=1, max_hp_bonus=5)
                     item = Entity(x, y, '*', libtcod.Color(35, 188, 212),
-                        'Space Stone (+5D +5P +5HP)',
+                        'Space Stone (+1D +1P +5HP)',
                         equippable=equippable_component)
                 elif item_choice == 'mind_stone':
                     equippable_component = Equippable(EquipmentSlots.RING_2,
-                        defense_bonus=5, power_bonus=5, max_hp_bonus=5)
+                        defense_bonus=2, power_bonus=2, max_hp_bonus=5)
                     item = Entity(x, y, '*', libtcod.Color(238, 224, 30),
-                        'Mind Stone (+8D +8P +8HP)', equippable=equippable_component)
+                        'Mind Stone (+2D +2P +8HP)', equippable=equippable_component)
                 elif item_choice == 'reality_stone':
                     equippable_component = Equippable(EquipmentSlots.RING_3,
-                        defense_bonus=10, power_bonus=10, max_hp_bonus=10)
+                        defense_bonus=4, power_bonus=4, max_hp_bonus=10)
                     item = Entity(x, y, '*', libtcod.Color(223, 22, 22),
-                        'Reality Stone (+10D +10P +10HP)',
+                        'Reality Stone (+4D +4P +10HP)',
                         equippable=equippable_component)
                 elif item_choice == 'power_stone':
                     equippable_component = Equippable(EquipmentSlots.RING_4,
-                        defense_bonus=12, power_bonus=12, max_hp_bonus=12)
+                        defense_bonus=6, power_bonus=6, max_hp_bonus=12)
                     item = Entity(x, y, '*', libtcod.Color(118, 19, 168),
-                        'Power Stone (+12D +12P +12HP)',
+                        'Power Stone (+6D +6P +12HP)',
                         equippable=equippable_component)
                 elif item_choice == 'time_stone':
                     equippable_component = Equippable(EquipmentSlots.RING_5,
-                        defense_bonus=14, power_bonus=14, max_hp_bonus=14)
+                        defense_bonus=7, power_bonus=7, max_hp_bonus=14)
                     item = Entity(x, y, '*', libtcod.Color(19, 168, 39),
-                        'Time Stone (+14D +14P +14HP)',
+                        'Time Stone (+7D +7P +14HP)',
                         equippable=equippable_component)
                 elif item_choice == 'soul_stone':
                     equippable_component = Equippable(EquipmentSlots.RING_6,
-                        defense_bonus=16, power_bonus=16, max_hp_bonus=16)
+                        defense_bonus=8, power_bonus=8, max_hp_bonus=16)
                     item = Entity(x, y, '*', libtcod.Color(218, 149, 46),
-                        'Soul Stone (+16D +16P +16HP)',
+                        'Soul Stone (+8D +8P +16HP)',
                         equippable=equippable_component)
                 #OFF_HAND
                 elif item_choice == 'wooden_shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND,
-                        defense_bonus=2)
+                        defense_bonus=1)
                     item = Entity(x, y, ']', libtcod.Color(65, 43, 9),
-                        'Wooden Shield (+2D)', equippable=equippable_component)
+                        'Wooden Shield (+1D)', equippable=equippable_component)
                 elif item_choice == 'sturdy_shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND,
-                        defense_bonus=4)
+                        defense_bonus=2)
                     item = Entity(x, y, ']', libtcod.Color(50, 40, 50),
-                        'Sturdy Shield (+4D)', equippable=equippable_component)
+                        'Sturdy Shield (+2D)', equippable=equippable_component)
                 elif item_choice == 'dwarven_shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND,
-                        defense_bonus=6, max_hp_bonus=6)
+                        defense_bonus=4, max_hp_bonus=6)
                     item = Entity(x, y, ']', libtcod.Color(35, 49, 119),
-                        'Dwarven Shield (+6D +6HP)', equippable=equippable_component)
+                        'Dwarven Shield (+4D +6HP)', equippable=equippable_component)
                 elif item_choice == 'jotun_shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND,
-                        defense_bonus=8, power_bonus=8)
+                        defense_bonus=5, power_bonus=8)
                     item = Entity(x, y, ']', libtcod.Color(88, 115, 214),
-                        'Jotun Shield (+8D +8P)', equippable=equippable_component)
+                        'Jotun Shield (+5D +8P)', equippable=equippable_component)
                 elif item_choice == 'shield_of_hel':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND,
-                        defense_bonus=10, power_bonus=2, max_hp_bonus=10)
+                        defense_bonus=8, power_bonus=2, max_hp_bonus=10)
                     item = Entity(x, y, ']', libtcod.Color(165, 25, 40),
-                        'Shield of Hel (+10D +2P +10HP)',
+                        'Shield of Hel (+8D +2P +10HP)',
                         equippable=equippable_component)
                 elif item_choice == 'ullrs_shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND,
-                        defense_bonus=15)
+                        defense_bonus=10)
                     item = Entity(x, y, ']', libtcod.Color(65, 155, 77),
-                        'Ullr\'s Shield (+15D)', equippable=equippable_component)
+                        'Ullr\'s Shield (+10D)', equippable=equippable_component)
                 elif item_choice == 'svallin':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND,
-                        defense_bonus=15, power_bonus=10, max_hp_bonus=15)
+                        defense_bonus=14, power_bonus=10, max_hp_bonus=15)
                     item = Entity(x, y, ']', libtcod.Color(123, 148, 39),
-                        'Svallin (+15D +10P +15HP)', equippable=equippable_component)
+                        'Svallin (+14D +10P +15HP)', equippable=equippable_component)
                 #MAIN_HAND
                 elif item_choice == 'iron_sword':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
-                        power_bonus=4)
+                        power_bonus=3)
                     item = Entity(x, y, '/', libtcod.Color(97, 101, 82),
-                        'Iron Sword (+4P)', equippable=equippable_component)
+                        'Iron Sword (+3P)', equippable=equippable_component)
                 elif item_choice == 'berserker_sword':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
-                        power_bonus=5)
+                        power_bonus=4)
                     item = Entity(x, y, '/', libtcod.Color(50, 50, 50),
-                        'Berserker Sword (+5P)', equippable=equippable_component)
+                        'Berserker Sword (+4P)', equippable=equippable_component)
                 elif item_choice == 'dwarven_axe':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
                         power_bonus=5, max_hp_bonus=5)
@@ -514,19 +514,19 @@ class GameMap:
                         'Dainsleif (+8P +10HP)', equippable=equippable_component)
                 elif item_choice == 'skofnung':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
-                        power_bonus=11)
+                        power_bonus=10)
                     item = Entity(x, y, '/', libtcod.Color(32, 24, 38),
-                        'Skofnung (+11P)', equippable=equippable_component)
+                        'Skofnung (+10P)', equippable=equippable_component)
                 elif item_choice == 'hrotti':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
-                        power_bonus=15)
+                        power_bonus=12)
                     item = Entity(x, y, '/', libtcod.Color(176, 192, 110),
-                        'Hrotti (+15P)', equippable=equippable_component)
+                        'Hrotti (+12P)', equippable=equippable_component)
                 elif item_choice == 'ridill':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
-                        power_bonus=4, defense_bonus=4, max_hp_bonus=30)
+                        power_bonus=4, defense_bonus=6, max_hp_bonus=30)
                     item = Entity(x, y, '/', libtcod.Color(206, 206, 206),
-                        'Ridill (+4P +4D +30HP)', equippable=equippable_component)
+                        'Ridill (+4P +6D +30HP)', equippable=equippable_component)
                 elif item_choice == 'gram':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
                         power_bonus=15, max_hp_bonus=15)
@@ -534,9 +534,9 @@ class GameMap:
                         'Gram (+15P +15HP)', equippable=equippable_component)
                 elif item_choice == 'mistilteinn':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
-                        power_bonus=10, defense_bonus=10, max_hp_bonus=30)
+                        power_bonus=14, defense_bonus=10, max_hp_bonus=30)
                     item = Entity(x, y, '/', libtcod.Color(40, 172, 35),
-                        'Mistilteinn (+10P +10D +30HP)', equippable=equippable_component)
+                        'Mistilteinn (+14P +10D +30HP)', equippable=equippable_component)
                 elif item_choice == 'gungnir':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
                         power_bonus=20, defense_bonus=10)
