@@ -1,6 +1,6 @@
 class Level:
     '''
-    Component that tracks level and xp
+    Component that tracks level, xp, and coin
     '''
     def __init__(self, current_level=1, current_xp=0, level_up_base=200, level_up_factor=150):
         self.current_level = current_level

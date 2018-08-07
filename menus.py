@@ -120,6 +120,9 @@ def character_screen(player, character_screen_width, character_screen_height,
     libtcod.console_print_rect_ex(window, 0, 8, character_screen_width,
         character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT,
         'Defense: {0}'.format(player.fighter.defense))
+    libtcod.console_print_rect_ex(window, 0, 9, character_screen_width,
+        character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT,
+        'Coin: {0}'.format(player.fighter.coin))
 
     x = screen_width // 2 - character_screen_width // 2
     y = screen_height // 2 - character_screen_height // 2

@@ -170,11 +170,11 @@ class GameMap:
             'girdle_of_brynhilder': from_dungeon_level([[5, 15], [0, 31]], self.dungeon_level),
             'megingjord': from_dungeon_level([[5, 30]], self.dungeon_level),
             #RINGS
-            'space_stone': from_dungeon_level([[2, 2]], self.dungeon_level),
-            'mind_stone': from_dungeon_level([[2, 8]], self.dungeon_level),
-            'reality_stone': from_dungeon_level([[2, 16]], self.dungeon_level),
-            'power_stone': from_dungeon_level([[2, 24]], self.dungeon_level),
-            'time_stone': from_dungeon_level([[2, 30]], self.dungeon_level),
+            'space_stone': from_dungeon_level([[2, 2], [0, 10]], self.dungeon_level),
+            'mind_stone': from_dungeon_level([[2, 8], [0, 18]], self.dungeon_level),
+            'reality_stone': from_dungeon_level([[2, 16], [0, 26]], self.dungeon_level),
+            'power_stone': from_dungeon_level([[2, 24], [0, 32]], self.dungeon_level),
+            'time_stone': from_dungeon_level([[2, 30], [0, 40]], self.dungeon_level),
             'soul_stone': from_dungeon_level([[2, 36]], self.dungeon_level),
             #OFF_HAND
             'wooden_shield': from_dungeon_level([[15, 4], [0, 11]], self.dungeon_level),
@@ -198,12 +198,12 @@ class GameMap:
             'mistilteinn': from_dungeon_level([[5, 30], [0, 42]], self.dungeon_level),
             'gungnir': from_dungeon_level([[4, 38]], self.dungeon_level),
             'tyrfing': from_dungeon_level([[4, 38]], self.dungeon_level),
-            'mjolnir': from_dungeon_level([[5, 42]], self.dungeon_level),
+            'mjolnir': from_dungeon_level([[4, 42]], self.dungeon_level),
             #POTION
             's_healing_potion': from_dungeon_level([[40, 1], [0, 15]], self.dungeon_level),
-            'm_healing_potion': from_dungeon_level([[35, 15], [0, 30]], self.dungeon_level),
-            'l_healing_potion': from_dungeon_level([[30, 30]], self.dungeon_level),
-            'full_healing_salve': from_dungeon_level([[20, 40]], self.dungeon_level),
+            'm_healing_potion': from_dungeon_level([[40, 15], [0, 30]], self.dungeon_level),
+            'l_healing_potion': from_dungeon_level([[35, 30]], self.dungeon_level),
+            'full_healing_salve': from_dungeon_level([[25, 40]], self.dungeon_level),
             #SCROLL
             'confusion_scroll': from_dungeon_level([[20, 2], [10, 9]], self.dungeon_level),
             'lightning_scroll': from_dungeon_level([[20, 8], [10, 17]], self.dungeon_level),
@@ -221,14 +221,14 @@ class GameMap:
                     entity.y == y]):
                 monster_choice = random_choice_from_dict(monster_chances)
                 if monster_choice == 'orc':
-                    fighter_component = Fighter(hp=20, defense=0, power=3, xp=35)
+                    fighter_component = Fighter(hp=20, defense=0, power=3, xp=35, coin=10)
                     ai_component = BasicMonster()
 
                     monster = Entity(x, y, 'o', libtcod.Color(14, 27, 112), 'Orc',
                         blocks=True,render_order=RenderOrder.ACTOR,
                         fighter=fighter_component, ai=ai_component)
                 else:
-                    fighter_component = Fighter(hp=30, defense=2, power=8, xp=100)
+                    fighter_component = Fighter(hp=30, defense=2, power=8, xp=100, coin=30)
                     ai_component = BasicMonster()
 
                     monster = Entity(x, y, 'T', libtcod.darker_green, 'Troll',
