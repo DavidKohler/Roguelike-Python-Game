@@ -11,7 +11,7 @@ from entity import Entity
 
 from game_messages import Message
 
-from item_functions import cast_confuse, cast_fireball, cast_lightning, heal
+from item_functions import cast_confuse, cast_fireball, cast_lightning, cast_mistletoe, cast_ragnarok, heal 
 
 from map_objects.rectangle import Rect
 from map_objects.tile import Tile
@@ -160,7 +160,7 @@ class GameMap:
             'leggings_of_odin': from_dungeon_level([[4, 30]], self.dungeon_level),
             #BOOTS
             'light_boots': from_dungeon_level([[5, 2], [0, 5]], self.dungeon_level),
-            'timbs': from_dungeon_level([[5, 5]], self.dungeon_level),
+            'timbs': from_dungeon_level([[500, 1]], self.dungeon_level),
             'steel_boots': from_dungeon_level([[5, 6], [0, 12]], self.dungeon_level),
             'dwarven_boots': from_dungeon_level([[5, 11], [0, 17]], self.dungeon_level),
             'helskor': from_dungeon_level([[5, 20]], self.dungeon_level),
@@ -205,9 +205,9 @@ class GameMap:
             'l_healing_potion': from_dungeon_level([[20, 25]], self.dungeon_level),
             'full_healing_salve': from_dungeon_level([[10, 30]], self.dungeon_level),
             #SCROLL
-            'confusion_scroll': from_dungeon_level([[10, 2]], self.dungeon_level),
-            'lightning_scroll': from_dungeon_level([[20, 5]], self.dungeon_level),
-            'fireball_scroll': from_dungeon_level([[20, 9]], self.dungeon_level),
+            'confusion_scroll': from_dungeon_level([[20, 2], [10, 8]], self.dungeon_level),
+            'lightning_scroll': from_dungeon_level([[20, 5], [15, 9]], self.dungeon_level),
+            'fireball_scroll': from_dungeon_level([[15, 9]], self.dungeon_level),
             'mistletoe': from_dungeon_level([[10, 14]], self.dungeon_level),
             'ragnarok': from_dungeon_level([[8, 20]], self.dungeon_level)
         }
@@ -301,32 +301,32 @@ class GameMap:
                 elif item_choice == 'leather_chestplate':
                     equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
                         defense_bonus=2)
-                    item = Entity(x, y, '#', libtcod.Color(104, 69, 7),
+                    item = Entity(x, y, 'W', libtcod.Color(104, 69, 7),
                         'Leather Chestplate (+2D)', equippable=equippable_component)
                 elif item_choice == 'chainmail':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
                             defense_bonus=4)
-                        item = Entity(x, y, '#', libtcod.Color(164, 164, 164),
+                        item = Entity(x, y, 'W', libtcod.Color(164, 164, 164),
                             'Chainmail Chestplate (+4D)', equippable=equippable_component)
                 elif item_choice == 'dwarven_chestplate':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
                             defense_bonus=6, max_hp_bonus=10)
-                        item = Entity(x, y, '#', libtcod.Color(41, 62, 146),
+                        item = Entity(x, y, 'W', libtcod.Color(41, 62, 146),
                             'Dwarven Chestplate (+6D +10HP)', equippable=equippable_component)
                 elif item_choice == 'falcon_cloak':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
                             defense_bonus=8)
-                        item = Entity(x, y, '#', libtcod.Color(183, 151, 94),
+                        item = Entity(x, y, 'W', libtcod.Color(183, 151, 94),
                             'Falcon Cloak (+8D)', equippable=equippable_component)
                 elif item_choice == 'tarnkappe':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
                             defense_bonus=12, power_bonus=8, max_hp_bonus=10)
-                        item = Entity(x, y, '#', libtcod.Color(54, 45, 30),
+                        item = Entity(x, y, 'W', libtcod.Color(54, 45, 30),
                             'Tarnkappe (+12D +8P +10HP)', equippable=equippable_component)
                 elif item_choice == 'golden_coat':
                         equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
                             defense_bonus=15, power_bonus=5, max_hp_bonus=20)
-                        item = Entity(x, y, '#', libtcod.Color(175, 144, 18),
+                        item = Entity(x, y, 'W', libtcod.Color(175, 144, 18),
                             'Golden Coat of Chainmail (+15D +5P +20HP)',
                             equippable=equippable_component)
                 #LEGGINGS
@@ -366,9 +366,9 @@ class GameMap:
                         'Light Boots (+2D)', equippable=equippable_component)
                 elif item_choice == 'timbs':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
-                        power_bonus=30)
+                        power_bonus=-10, defense_bonus=-10, max_hp_bonus=50)
                     item = Entity(x, y, 'b', libtcod.Color(149, 104, 26),
-                        'Fresh Timbs (+30P)', equippable=equippable_component)
+                        'Fresh Timbs (-10P -10D +50HP)', equippable=equippable_component)
                 elif item_choice == 'steel_boots':
                     equippable_component = Equippable(EquipmentSlots.BOOTS,
                         defense_bonus=5)
@@ -556,8 +556,8 @@ class GameMap:
                 elif item_choice == 'confusion_scroll':
                     item_component = Item(use_function=cast_confuse, targeting=True,
                         targeting_message=Message(
-                        'Left-click an enemy to confuse it, or right-click to \
-                        cancel.', libtcod.light_cyan))
+                        'Left-click an enemy to confuse it, or right-click to cancel.',
+                        libtcod.light_cyan))
                     item = Entity(x, y, '#', libtcod.light_pink, 'Confusion Scroll',
                         render_order=RenderOrder.ITEM, item=item_component)
                 elif item_choice == 'lightning_scroll':
@@ -568,22 +568,22 @@ class GameMap:
                 elif item_choice == 'fireball_scroll':
                     item_component = Item(use_function=cast_fireball, targeting=True,
                         targeting_message=Message(
-                        'Left-click a target tile for the fireball, or right-click\
-                         to cancel.', libtcod.light_cyan), damage=25, radius=3)
+                        'Left-click a target tile for the fireball, or right-click to cancel.',
+                        libtcod.light_cyan), damage=25, radius=3)
                     item = Entity(x, y, '#', libtcod.red, 'Fireball Scroll',
                         render_order=RenderOrder.ITEM, item=item_component)
                 elif item_choice == 'mistletoe':
-                    item_component = Item(use_function=cast_lightning, damage=100,
+                    item_component = Item(use_function=cast_mistletoe, damage=100,
                         maximum_range=15)
                     item = Entity(x, y, '#', libtcod.Color(40, 172, 35),
                         'Mistletoe Scroll', render_order=RenderOrder.ITEM,
                         item=item_component)
                 else:
-                    item_component = Item(use_function=cast_fireball, targeting=True,
-                        targeting_message=Message('Left-click a target tile for \
-                        the casting, or right-click to cancel.',
-                        libtcod.light_cyan), damage=100, radius=5)
-                    item = Entity(x, y, '#', libtcod.Color(5, 5, 5), 'Ragnarok',
+                    item_component = Item(use_function=cast_ragnarok, targeting=True,
+                        targeting_message=Message(
+                        'Left-click a target tile for Ragnarok, or right-click to cancel.',
+                        libtcod.light_cyan), damage=500, radius=20)
+                    item = Entity(x, y, '#', libtcod.Color(5, 5, 5), 'Scroll of Ragnarok',
                         render_order=RenderOrder.ITEM, item=item_component)
 
                 entities.append(item)
@@ -605,7 +605,8 @@ class GameMap:
 
         player.fighter.heal(player.fighter.max_hp // 2)
 
-        message_log.add_message(Message('You take a moment to rest, and recover \
-            your strength.', libtcod.light_violet))
+        message_log.add_message(Message(
+            'You take a moment to rest, and recover your strength.',
+            libtcod.light_violet))
 
         return entities
