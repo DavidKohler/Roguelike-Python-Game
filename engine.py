@@ -68,6 +68,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
         take_stairs = action.get('take_stairs')
         level_up = action.get('level_up')
         show_character_screen = action.get('show_character_screen')
+        shop = action.get('shop')
         exit = action.get('exit')
         fullscreen = action.get('fullscreen')
 
@@ -167,9 +168,23 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             elif right_click:
                 player_turn_results.append({'targeting_cancelled': True})
 
+        if shop and game_state == GameStates.PLAYERS_TURN:
+            for entity in entities:
+                if entity.shopkeep and ((entity.x == player.x + 1) or \
+                (entity.x == player.x - 1) or (entity.x == player.x)) and \
+                ((entity.y == player.y + 1) or (entity.y == player.y - 1) or \
+                (entity.y == player.y)):
+                    previous_game_state = game_state
+                    game_state = GameStates.ENTER_SHOP
+
+                    break
+            else:
+                message_log.add_message(Message('There is no shopkeeper here.',
+                    libtcod.yellow))
+
         if exit:
             if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY,
-                    GameStates.CHARACTER_SCREEN):
+                    GameStates.CHARACTER_SCREEN, GameStates.ENTER_SHOP):
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})
@@ -250,7 +265,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             if xp:
                 leveled_up = player.level.add_xp(xp)
                 message_log.add_message(Message('You gain {0} experience points.'\
-                    .format(xp)))
+                    .format(xp), libtcod.orange))
 
                 if leveled_up:
                     message_log.add_message(Message(
@@ -263,7 +278,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             if coin:
                 player.fighter.add_coin(coin)
                 message_log.add_message(Message('You gain {0} coins.'\
-                    .format(coin)))
+                    .format(coin), libtcod.orange))
 
         if game_state == GameStates.ENEMY_TURN:
             for entity in entities:

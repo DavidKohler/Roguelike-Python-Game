@@ -53,6 +53,8 @@ def handle_player_turn_keys(key):
         return {'take_stairs': True}
     elif key_char == 'c':
         return {'show_character_screen': True}
+    elif key_char == 's':
+        return {'shop' : True}
 
     if key.vk == libtcod.KEY_ENTER and key.lalt:
         # Alt+Enter: toggle full screen

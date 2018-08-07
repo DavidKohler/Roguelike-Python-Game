@@ -5,6 +5,7 @@ from components.equipment import EquipmentSlots
 from components.equippable import Equippable
 from components.fighter import Fighter
 from components.item import Item
+from components.shopkeep import Shopkeep
 from components.stairs import Stairs
 
 from entity import Entity
@@ -85,10 +86,40 @@ class GameMap:
                     # this is the first room, where the player starts at
                     player.x = new_x
                     player.y = new_y
+
+                    shopkeep_component = Shopkeep(100000)
+
+                    shopkeeper = Entity(new_x+1, new_y+1, '$', libtcod.Color(5, 5, 5),
+                        'Shopkeeper', blocks=True,render_order=RenderOrder.ACTOR,
+                        shopkeep = shopkeep_component)
+
+                    entities.append(shopkeeper)
+                    self.tiles[new_x+1][new_y+1].blocked = True
                 else:
                     # all rooms after the first:
                     # connect it to the previous room with a tunnel
+                    '''
+                    if num_rooms == 1:
+                        #33% chance of generating a shop on second room
+                        (prev_x, prev_y) = rooms[num_rooms - 1].center()
+                        if randint(0, 1) == 1:
+                            # first move horizontally, then vertically
+                            self.create_h_tunnel(prev_x, new_x, prev_y)
+                            self.create_v_tunnel(prev_y, new_y, new_x)
+                        else:
+                            # first move vertically, then horizontally
+                            self.create_v_tunnel(prev_y, new_y, prev_x)
+                            self.create_h_tunnel(prev_x, new_x, new_y)
 
+                        shopkeeper = Entity(new_x, new_y, '$', libtcod.Color(5, 5, 5),
+                            'Shopkeeper', blocks=True,render_order=RenderOrder.ACTOR)
+
+                        entities.append(shopkeeper)
+                        rooms.append(new_room)
+                        num_rooms += 1
+
+                        continue
+                    '''
                     # center coordinates of previous room
                     (prev_x, prev_y) = rooms[num_rooms - 1].center()
 

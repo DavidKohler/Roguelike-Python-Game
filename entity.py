@@ -11,7 +11,8 @@ class Entity:
     """
     def __init__(self, x, y, char, color, name, blocks=False,
             render_order=RenderOrder.CORPSE, fighter=None, ai=None, item=None,
-            inventory=None, stairs=None, level=None, equipment=None, equippable=None):
+            inventory=None, stairs=None, level=None, equipment=None, equippable=None,
+            shopkeep=None):
         self.x = x
         self.y = y
         self.char = char
@@ -27,6 +28,7 @@ class Entity:
         self.level = level
         self.equipment = equipment
         self.equippable = equippable
+        self.shopkeep = shopkeep
 
         if self.fighter:
             self.fighter.owner = self
@@ -56,6 +58,10 @@ class Entity:
                 item = Item()
                 self.item = item
                 self.item.owner = self
+
+        if self.shopkeep:
+            self.shopkeep.owner = self
+            self.blocks = True
 
     def move(self, dx, dy):
         # Move the entity by a given amount
@@ -132,7 +138,7 @@ class Entity:
 
 def get_blocking_entities_at_location(entities, destination_x, destination_y):
     for entity in entities:
-        if entity.blocks and entity.x == destination_x and entity.y == destination_y:
+        if entity.blocks and entity.x == destination_x and entity.y == destination_y and entity.name != 'Shopkeeper':
             return entity
 
     return None
