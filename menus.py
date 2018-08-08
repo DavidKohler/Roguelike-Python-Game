@@ -162,7 +162,7 @@ def sell_menu(con, header, player, inventory_width, screen_width, screen_height)
         options = []
         for item in player.inventory.items:
             item_name = item.name.split('(')[0]
-            item_name_price = item_name + '(${0})'.format(item.cashable.coin)
+            item_name_price = item_name + '(${0})'.format((item.cashable.coin // 10))
             options.append(item_name_price)
     menu(con, header, options, inventory_width, screen_width, screen_height)
 

@@ -12,8 +12,9 @@ class RenderOrder(Enum):
     '''
     CORPSE = 1
     ITEM = 2
-    STAIRS = 3
-    ACTOR = 4
+    SHOPKEEP = 3
+    STAIRS = 4
+    ACTOR = 5
 
 def get_names_under_mouse(mouse, entities, fov_map):
     '''
@@ -154,6 +155,7 @@ def draw_entity(con, entity, fov_map, game_map):
     Draws entity
     '''
     if libtcod.map_is_in_fov(fov_map, entity.x, entity.y) or (entity.stairs and \
+            game_map.tiles[entity.x][entity.y].explored) or (entity.shopkeep and \
             game_map.tiles[entity.x][entity.y].explored):
         libtcod.console_set_default_foreground(con, entity.color)
         libtcod.console_put_char(con, entity.x, entity.y, entity.char,

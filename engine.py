@@ -184,10 +184,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
         # player tries to enter shop
         if shop and game_state == GameStates.PLAYERS_TURN:
             for entity in entities:
-                if entity.shopkeep and ((entity.x == player.x + 1) or \
-                (entity.x == player.x - 1) or (entity.x == player.x)) and \
-                ((entity.y == player.y + 1) or (entity.y == player.y - 1) or \
-                (entity.y == player.y)):
+                if entity.shopkeep and entity.x == player.x and entity.y == player.y:
                     previous_game_state = game_state
                     game_state = GameStates.ENTER_SHOP
 
@@ -207,10 +204,10 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             for entity in entities:
                 if entity.shopkeep:
                     item_cost = player.inventory.items[sell_index].cashable.coin
-                    player.fighter.coin += item_cost
+                    player.fighter.coin += (item_cost // 10)
                     message_log.add_message(Message('You sell {0}for {1} coins.'\
                         .format(player.inventory.items[sell_index].name.split('(')[0],
-                        item_cost), libtcod.blue))
+                        (item_cost // 10)), libtcod.blue))
                     player.inventory.remove_item(player.inventory.items[sell_index])
 
                     break
@@ -221,8 +218,8 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
         # player tries to buy item at shop
         if buy_index is not None and previous_game_state != GameStates.PLAYER_DEAD and\
-                game_state == GameStates.BUYING and buy_index < 1:
-#TODO hard code shopkeeper inventory limit
+                game_state == GameStates.BUYING and buy_index < 25:
+
             for entity in entities:
                 if entity.shopkeep:
                     player_coin = player.fighter.coin

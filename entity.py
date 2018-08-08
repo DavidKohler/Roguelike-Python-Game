@@ -62,7 +62,6 @@ class Entity:
 
         if self.shopkeep:
             self.shopkeep.owner = self
-            self.blocks = True
 
         if self.cashable:
             self.cashable.owner = self
