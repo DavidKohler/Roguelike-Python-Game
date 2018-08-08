@@ -138,14 +138,21 @@ def enter_shop_menu(con, header, player, menu_width, screen_width, screen_height
 
 def sell_menu(con, header, player, inventory_width, screen_width, screen_height):
     # show a menu with each item of the inventory as an option
-    options = []
-    for item in player.inventory.items:
-        options.append(item.name)
+    if len(player.inventory.items) == 0:
+        options = ['Inventory is empty.']
+    else:
+        options = []
+        for item in player.inventory.items:
+            item_name = item.name.split('(')[0]
+            item_name_price = item_name + '(${0})'.format(item.cashable.coin)
+            options.append(item_name_price)
     menu(con, header, options, inventory_width, screen_width, screen_height)
 
 def buy_menu(con, header, shopkeeper, inventory_width, screen_width, screen_height):
     # show a menu with each item of the inventory as an option
     options = []
     for item in shopkeeper.inventory.items:
-        options.append(item.name)
+        item_name = item.name.split('(')[0]
+        item_name_price = item_name + '(${0})'.format(item.cashable.coin)
+        options.append(item_name_price)
     menu(con, header, options, inventory_width, screen_width, screen_height)

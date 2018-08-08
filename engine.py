@@ -187,32 +187,28 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                     libtcod.yellow))
 
         if shop_sell:
-            previous_game_state = GameStates.PLAYERS_TURN
             game_state = GameStates.SELLING
 
         if sell_index is not None and previous_game_state != GameStates.PLAYER_DEAD and\
-                game_state == GameStates.SELLING:
-            
+                game_state == GameStates.SELLING and sell_index < len(player.inventory.items):
+
             for entity in entities:
                 if entity.shopkeep:
                     item_cost = player.inventory.items[sell_index].cashable.coin
                     player.fighter.coin += item_cost
-                    message_log.add_message(Message('You sell {0} for {1} coins.'\
-                        .format(player.inventory.items[sell_index].name, item_cost),
-                        libtcod.blue))
+                    message_log.add_message(Message('You sell {0}for {1} coins.'\
+                        .format(player.inventory.items[sell_index].name.split('(')[0],
+                        item_cost), libtcod.blue))
                     player.inventory.remove_item(player.inventory.items[sell_index])
 
                     break
 
-            game_state = GameStates.PLAYERS_TURN
-
         if shop_buy:
-            previous_game_state = GameStates.PLAYERS_TURN
             game_state = GameStates.BUYING
 
         if buy_index is not None and previous_game_state != GameStates.PLAYER_DEAD and\
-                game_state == GameStates.BUYING:
-
+                game_state == GameStates.BUYING and buy_index < 1:
+#TODO hard code shopkeeper inventory limit
             for entity in entities:
                 if entity.shopkeep:
                     player_coin = player.fighter.coin
@@ -220,23 +216,25 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                     if player_coin >= item_cost:
                         player.inventory.add_item(entity.inventory.items[buy_index])
                         player.fighter.coin -= item_cost
-                        message_log.add_message(Message('You buy {0} for {1} coins.'\
-                            .format(entity.inventory.items[buy_index].name, item_cost),
-                            libtcod.blue))
+                        message_log.add_message(Message('You buy {0}for {1} coins.'\
+                            .format(entity.inventory.items[buy_index].name.split('(')[0],
+                            item_cost), libtcod.blue))
                     else:
                         message_log.add_message(Message('You don\'t have enough coins!',
                             libtcod.yellow))
 
                     break
 
-            game_state = GameStates.PLAYERS_TURN
-
         if exit:
             if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY,
-                    GameStates.CHARACTER_SCREEN, GameStates.ENTER_SHOP, GameStates.BUYING):
+                    GameStates.CHARACTER_SCREEN):
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})
+            elif game_state == GameStates.ENTER_SHOP:
+                game_state = GameStates.PLAYERS_TURN
+            elif game_state in (GameStates.SELLING, GameStates.BUYING):
+                game_state = GameStates.ENTER_SHOP
             else:
                 save_game(player, entities, game_map, message_log, game_state)
 
@@ -290,11 +288,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                     if equipped:
                         message_log.add_message(Message('You equipped the {0}'\
-                            .format(equipped.name)))
+                            .format(equipped.name.split('(')[0])))
 
                     if dequipped:
                         message_log.add_message(Message('You dequipped the {0}'\
-                            .format(dequipped.name)))
+                            .format(dequipped.name.split('(')[0])))
 
                 game_state = GameStates.ENEMY_TURN
 

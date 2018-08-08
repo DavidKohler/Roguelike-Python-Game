@@ -89,7 +89,7 @@ class GameMap:
                     player.x = new_x
                     player.y = new_y
 
-                    shopkeep_component = Shopkeep(100000)
+                    shopkeep_component = Shopkeep(True)
                     inventory_component = Inventory(50)
                     shopkeeper = Entity(new_x+1, new_y+1, '$', libtcod.Color(5, 5, 5),
                         'Shopkeeper', blocks=True,render_order=RenderOrder.ACTOR,

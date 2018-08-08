@@ -109,6 +109,19 @@ def handle_targeting_keys(key):
 
     return {}
 
+def handle_level_up_menu(key):
+    if key:
+        key_char = chr(key.c)
+
+        if key_char == 'a':
+            return {'level_up': 'hp'}
+        elif key_char == 'b':
+            return {'level_up': 'str'}
+        elif key_char == 'c':
+            return {'level_up': 'def'}
+
+    return {}
+
 def handle_character_screen(key):
     if key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
@@ -154,19 +167,6 @@ def handle_buying(key):
     elif key.vk == libtcod.KEY_ESCAPE:
         # Exit the menu
         return {'exit': True}
-
-    return {}
-
-def handle_level_up_menu(key):
-    if key:
-        key_char = chr(key.c)
-
-        if key_char == 'a':
-            return {'level_up': 'hp'}
-        elif key_char == 'b':
-            return {'level_up': 'str'}
-        elif key_char == 'c':
-            return {'level_up': 'def'}
 
     return {}
 

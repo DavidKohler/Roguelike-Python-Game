@@ -16,13 +16,13 @@ class Inventory:
         if len(self.items) >= self.capacity:
             results.append({
                 'item_added': None,
-                'message': Message('You cannot carry any more, your inventory is full', libtcod.yellow)
-            })
+                'message': Message('You cannot carry any more, your inventory is full',
+                libtcod.yellow)})
         else:
             results.append({
                 'item_added': item,
-                'message': Message('You pick up the {0}!'.format(item.name), libtcod.blue)
-            })
+                'message': Message('You pick up the {0}!'.format(item.name.split('(')[0].strip()),
+                libtcod.blue)})
 
             self.items.append(item)
 
@@ -58,7 +58,7 @@ class Inventory:
                 results.append({'equip': item_entity})
             else:
                 results.append({'message': Message('The {0} cannot be used'\
-                    .format(item_entity.name), libtcod.yellow)})
+                    .format(item_entity.name.split('(')[0]), libtcod.yellow)})
         else:
             if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
                 results.append({'targeting': item_entity})
