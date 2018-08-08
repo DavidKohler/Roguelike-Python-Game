@@ -1,14 +1,9 @@
 import libtcodpy as libtcod
 
-from components.ai import BasicMonster
 from components.cashable import Cashable
 from components.equipment import EquipmentSlots
 from components.equippable import Equippable
-from components.fighter import Fighter
 from components.item import Item
-from components.inventory import Inventory
-from components.shopkeep import Shopkeep
-from components.stairs import Stairs
 
 from entity import Entity
 
