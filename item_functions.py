@@ -4,11 +4,10 @@ from components.ai import ConfusedMonster
 
 from game_messages import Message
 
-'''
-Assigns functions to items
-'''
-
 def cast_confuse(*args, **kwargs):
+    '''
+    Effect of confuse scroll
+    '''
     entities = kwargs.get('entities')
     fov_map = kwargs.get('fov_map')
     target_x = kwargs.get('target_x')
@@ -16,6 +15,7 @@ def cast_confuse(*args, **kwargs):
 
     results = []
 
+    # checks if target is in FOV
     if not libtcod.map_is_in_fov(fov_map, target_x, target_y):
         results.append({'consumed': False, 'message': Message(
             'You cannot target a tile outside your field of view.', libtcod.yellow)})
@@ -23,6 +23,7 @@ def cast_confuse(*args, **kwargs):
 
     for entity in entities:
         if entity.x == target_x and entity.y == target_y and entity.ai:
+            # sets monster ai to confused state
             confused_ai = ConfusedMonster(entity.ai, 10)
 
             confused_ai.owner = entity
@@ -40,6 +41,9 @@ def cast_confuse(*args, **kwargs):
     return results
 
 def cast_fireball(*args, **kwargs):
+    '''
+    Effect of fireball scroll
+    '''
     entities = kwargs.get('entities')
     fov_map = kwargs.get('fov_map')
     damage = kwargs.get('damage')
@@ -49,6 +53,7 @@ def cast_fireball(*args, **kwargs):
 
     results = []
 
+    # checks if target is in FOV
     if not libtcod.map_is_in_fov(fov_map, target_x, target_y):
         results.append({'consumed': False, 'message': Message(
             'You cannot target a tile outside your field of view.', libtcod.yellow)})
@@ -59,6 +64,7 @@ def cast_fireball(*args, **kwargs):
         libtcod.orange)})
 
     for entity in entities:
+        # check if entity is in burn radius
         if entity.distance(target_x, target_y) <= radius and entity.fighter:
             results.append({'message': Message(
                 'The {0} gets burned for {1} hit points.'.format(entity.name, damage),
@@ -68,6 +74,9 @@ def cast_fireball(*args, **kwargs):
     return results
 
 def cast_lightning(*args, **kwargs):
+    '''
+    Effect of lightning scroll
+    '''
     caster = args[0]
     entities = kwargs.get('entities')
     fov_map = kwargs.get('fov_map')
@@ -79,6 +88,7 @@ def cast_lightning(*args, **kwargs):
     target = None
     closest_distance = maximum_range + 1
 
+    # checks if target is in FOV
     for entity in entities:
         if entity.fighter and entity != caster and libtcod.map_is_in_fov(fov_map,
                 entity.x, entity.y):
@@ -100,6 +110,9 @@ def cast_lightning(*args, **kwargs):
     return results
 
 def cast_mistletoe(*args, **kwargs):
+    '''
+    Effect of misteltoe cast
+    '''
     caster = args[0]
     entities = kwargs.get('entities')
     fov_map = kwargs.get('fov_map')
@@ -111,6 +124,7 @@ def cast_mistletoe(*args, **kwargs):
     target = None
     closest_distance = maximum_range + 1
 
+    # checks if target is in FOV
     for entity in entities:
         if entity.fighter and entity != caster and libtcod.map_is_in_fov(fov_map,
                 entity.x, entity.y):
@@ -132,6 +146,9 @@ def cast_mistletoe(*args, **kwargs):
     return results
 
 def cast_ragnarok(*args, **kwargs):
+    '''
+    Effect of Ragnarok scroll
+    '''
     caster = args[0]
     entities = kwargs.get('entities')
     fov_map = kwargs.get('fov_map')
@@ -142,6 +159,7 @@ def cast_ragnarok(*args, **kwargs):
 
     results = []
 
+    # checks if target is in FOV
     if not libtcod.map_is_in_fov(fov_map, target_x, target_y):
         results.append({'consumed': False, 'message': Message(
             'You cannot target a tile outside your field of view.', libtcod.yellow)})
@@ -152,6 +170,7 @@ def cast_ragnarok(*args, **kwargs):
         libtcod.orange)})
 
     for entity in entities:
+        # checks if entity is in blast radius
         if entity.distance(target_x, target_y) <= radius \
             and entity.fighter and entity != caster:
             results.append({'message': Message(
@@ -160,8 +179,11 @@ def cast_ragnarok(*args, **kwargs):
             results.extend(entity.fighter.take_damage(damage))
 
     return results
-    
+
 def heal(*args, **kwargs):
+    '''
+    Effect of heal function
+    '''
     entity = args[0]
     amount = kwargs.get('amount')
 

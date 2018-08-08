@@ -23,6 +23,9 @@ class Equipment:
 
     @property
     def defense_bonus(self):
+        '''
+        Applies defense bonus
+        '''
         bonus = 0
 
         if self.main_hand and self.main_hand.equippable:
@@ -68,6 +71,9 @@ class Equipment:
 
     @property
     def max_hp_bonus(self):
+        '''
+        Applies HP bonus
+        '''
         bonus = 0
 
         if self.main_hand and self.main_hand.equippable:
@@ -113,6 +119,9 @@ class Equipment:
 
     @property
     def power_bonus(self):
+        '''
+        Applies power bonus
+        '''
         bonus = 0
 
         if self.main_hand and self.main_hand.equippable:
@@ -157,6 +166,9 @@ class Equipment:
         return bonus
 
     def toggle_equip(self, equippable_entity):
+        '''
+        Toggles whether item is equipped
+        '''
         results = []
 
         slot = equippable_entity.equippable.slot

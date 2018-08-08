@@ -1,11 +1,12 @@
 class Tile:
-    """
-    A tile on a map. It may or may not be blocked, may or may not block sight
-    """
+    '''
+    Tile class for map
+    May be blocked or blocking sight
+    '''
     def __init__(self, blocked, block_sight=None):
         self.blocked = blocked
 
-        # By default, if a tile is blocked, it also blocks sight
+        # by default if a tile is blocked, it also blocks sight
         if block_sight is None:
             block_sight = blocked
 

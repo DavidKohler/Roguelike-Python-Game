@@ -19,13 +19,12 @@ from map_objects.game_map import GameMap
 
 from render_functions import RenderOrder
 
-'''
-Initializes new instance of game
-'''
-
 DEBUG = 0
 
 def get_constants():
+    '''
+    Defines constants
+    '''
     window_title = 'Descent Into Jotunheim'
 
     screen_width = 80
@@ -86,6 +85,10 @@ def get_constants():
     return constants
 
 def get_game_variables(constants):
+    '''
+    Initializes game variables
+    '''
+    # creates player
     if DEBUG == 1:
         fighter_component = Fighter(hp=1000, defense=1, power=20)
     else:
@@ -99,6 +102,7 @@ def get_game_variables(constants):
                     equipment=equipment_component)
     entities = [player]
 
+    # starting weapon
     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
     cashable_component = Cashable(10)
     dagger = Entity(0, 0, '/', libtcod.orange, 'Rusty Dagger (+2P)',
@@ -106,6 +110,7 @@ def get_game_variables(constants):
     player.inventory.add_item(dagger)
     player.equipment.toggle_equip(dagger)
 
+    # initialize game
     game_map = GameMap(constants['map_width'], constants['map_height'])
     game_map.make_map(constants['max_rooms'], constants['room_min_size'],
                         constants['room_max_size'], constants['map_width'],

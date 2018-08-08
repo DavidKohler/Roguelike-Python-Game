@@ -19,12 +19,11 @@ from menus import main_menu, message_box
 
 from render_functions import clear_all, render_all
 
-'''
-Main engine and executor of code
-'''
-
 def play_game(player, entities, game_map, message_log, game_state, con,
             panel, constants):
+    '''
+    Main engine and executor of code
+    '''
     fov_recompute = True
 
     fov_map = initialize_fov(game_map)
@@ -59,6 +58,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
         action = handle_keys(key, game_state)
         mouse_action = handle_mouse(mouse)
 
+        # checks for actions
         move = action.get('move')
         wait = action.get('wait')
         pickup = action.get('pickup')
@@ -81,6 +81,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
         player_turn_results = []
 
+        # player moving
         if move and game_state == GameStates.PLAYERS_TURN:
             dx, dy = move
             destination_x = player.x + dx
@@ -100,9 +101,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                 game_state = GameStates.ENEMY_TURN
 
+        # player waiting
         elif wait:
             game_state = GameStates.ENEMY_TURN
 
+        # player tries to pick up item
         elif pickup and game_state == GameStates.PLAYERS_TURN:
             for entity in entities:
                 if entity.item and entity.x == player.x and entity.y == player.y:
@@ -114,14 +117,17 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                 message_log.add_message(Message('There is nothing here to pick up.',
                         libtcod.yellow))
 
+        # player shows inventory menu
         if show_inventory:
             previous_game_state = game_state
             game_state = GameStates.SHOW_INVENTORY
 
+        # player shows inventory menu
         if drop_inventory:
             previous_game_state = game_state
             game_state = GameStates.DROP_INVENTORY
 
+        # player selects object from inventory
         if inventory_index is not None and \
                 previous_game_state != GameStates.PLAYER_DEAD and \
                 inventory_index < len(player.inventory.items):
@@ -133,6 +139,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             elif game_state == GameStates.DROP_INVENTORY:
                 player_turn_results.extend(player.inventory.drop_item(item))
 
+        # player tries to take stairs
         if take_stairs and game_state == GameStates.PLAYERS_TURN:
             for entity in entities:
                 if entity.stairs and entity.x == player.x and entity.y == player.y:
@@ -145,7 +152,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             else:
                 message_log.add_message(Message('There are no stairs here.',
                     libtcod.yellow))
-
+        # player levels up
         if level_up:
             if level_up == 'hp':
                 player.fighter.base_max_hp += 20
@@ -157,10 +164,12 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
             game_state = previous_game_state
 
+        # player opens character screen
         if show_character_screen:
             previous_game_state = game_state
             game_state = GameStates.CHARACTER_SCREEN
 
+        # player tries to target
         if game_state == GameStates.TARGETING:
             if left_click:
                 target_x, target_y = left_click
@@ -172,6 +181,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             elif right_click:
                 player_turn_results.append({'targeting_cancelled': True})
 
+        # player tries to enter shop
         if shop and game_state == GameStates.PLAYERS_TURN:
             for entity in entities:
                 if entity.shopkeep and ((entity.x == player.x + 1) or \
@@ -186,9 +196,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                 message_log.add_message(Message('There is no shopkeeper here.',
                     libtcod.yellow))
 
+        # player tries to sell
         if shop_sell:
             game_state = GameStates.SELLING
 
+        # player tries to sell item at shop
         if sell_index is not None and previous_game_state != GameStates.PLAYER_DEAD and\
                 game_state == GameStates.SELLING and sell_index < len(player.inventory.items):
 
@@ -203,9 +215,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                     break
 
+        # player tries to buy
         if shop_buy:
             game_state = GameStates.BUYING
 
+        # player tries to buy item at shop
         if buy_index is not None and previous_game_state != GameStates.PLAYER_DEAD and\
                 game_state == GameStates.BUYING and buy_index < 1:
 #TODO hard code shopkeeper inventory limit
@@ -225,6 +239,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                     break
 
+        # exit menu or game
         if exit:
             if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY,
                     GameStates.CHARACTER_SCREEN):
@@ -240,9 +255,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                 return True
 
+        # toggle fullscreen
         if fullscreen:
             libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
 
+        # player turn results
         for player_turn_result in player_turn_results:
             message = player_turn_result.get('message')
             dead_entity = player_turn_result.get('dead')
@@ -255,9 +272,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             xp = player_turn_result.get('xp')
             coin = player_turn_result.get('coin')
 
+            # adds message to log
             if message:
                 message_log.add_message(message)
 
+            # deals with dead entity
             if dead_entity:
                 if dead_entity == player:
                     message, game_state = kill_player(dead_entity)
@@ -266,19 +285,23 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                 message_log.add_message(message)
 
+            # item picked up
             if item_added:
                 entities.remove(item_added)
 
                 game_state = GameStates.ENEMY_TURN
 
+            # item used
             if item_consumed:
                 game_state = GameStates.ENEMY_TURN
 
+            # item dropped
             if item_dropped:
                 entities.append(item_dropped)
 
                 game_state = GameStates.ENEMY_TURN
 
+            # item equip toggled
             if equip:
                 equip_results = player.equipment.toggle_equip(equip)
 
@@ -296,6 +319,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                 game_state = GameStates.ENEMY_TURN
 
+            # something targeted
             if targeting:
                 previous_game_state = GameStates.PLAYERS_TURN
                 game_state = GameStates.TARGETING
@@ -304,11 +328,13 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                 message_log.add_message(targeting_item.item.targeting_message)
 
+            # targeting cancelled
             if targeting_cancelled:
                 game_state = previous_game_state
 
                 message_log.add_message(Message('Targeting cancelled'))
 
+            # gained xp
             if xp:
                 leveled_up = player.level.add_xp(xp)
                 message_log.add_message(Message('You gain {0} experience points.'\
@@ -322,11 +348,12 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                     previous_game_state = game_state
                     game_state = GameStates.LEVEL_UP
 
+            # gained coins
             if coin:
                 player.fighter.add_coin(coin)
                 message_log.add_message(Message('You gain {0} coins.'\
                     .format(coin), libtcod.orange))
-
+        # enemy takes turn
         if game_state == GameStates.ENEMY_TURN:
             for entity in entities:
                 if entity.ai:
@@ -337,9 +364,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                         message = enemy_turn_result.get('message')
                         dead_entity = enemy_turn_result.get('dead')
 
+                        # adds message to log
                         if message:
                             message_log.add_message(message)
 
+                        # checks for dead entity
                         if dead_entity:
                             if dead_entity == player:
                                 message, game_state = kill_player(dead_entity)
@@ -348,17 +377,24 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
                             message_log.add_message(message)
 
+                            # if player is dead, we're done
                             if game_state == GameStates.PLAYER_DEAD:
                                 break
 
+                    # if player is dead, we're done
                     if game_state == GameStates.PLAYER_DEAD:
                         break
+            # player's turn again
             else:
                 game_state = GameStates.PLAYERS_TURN
 
 def main():
+    '''
+    Loads and initializes all it needs. Starts game
+    '''
     constants = get_constants()
 
+    # uses custom font image
     libtcod.console_set_custom_font("./art/terminal8x8_gs_ro.png",
         libtcod.FONT_LAYOUT_ASCII_INROW)
     libtcod.console_init_root(constants['screen_width'], constants['screen_height'],
@@ -376,6 +412,7 @@ def main():
     show_main_menu = True
     show_load_error_message = False
 
+    # uses custom background image
     main_menu_background_image = libtcod.image_load('./art/background.png')
 
     key = libtcod.Key()

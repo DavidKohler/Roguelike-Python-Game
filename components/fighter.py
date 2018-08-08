@@ -15,10 +15,16 @@ class Fighter:
         self.coin = coin
 
     def add_coin(self, coin):
+        '''
+        Adds coins
+        '''
         self.coin += coin
 
     @property
     def defense(self):
+        '''
+        Computes defense after bonuses
+        '''
         if self.owner and self.owner.equipment:
             bonus = self.owner.equipment.defense_bonus
         else:
@@ -28,6 +34,9 @@ class Fighter:
 
     @property
     def max_hp(self):
+        '''
+        Computes HP after bonuses
+        '''
         if self.owner and self.owner.equipment:
             bonus = self.owner.equipment.max_hp_bonus
         else:
@@ -37,6 +46,9 @@ class Fighter:
 
     @property
     def power(self):
+        '''
+        Computes power after bonuses
+        '''
         if self.owner and self.owner.equipment:
             bonus = self.owner.equipment.power_bonus
         else:
@@ -45,6 +57,9 @@ class Fighter:
         return self.base_power + bonus
 
     def attack(self, target):
+        '''
+        Attacks a target
+        '''
         results = []
 
         damage = self.power - target.fighter.defense
@@ -62,12 +77,18 @@ class Fighter:
         return results
 
     def heal(self, amount):
+        '''
+        Heals self, some amount
+        '''
         self.hp += amount
 
         if self.hp > self.max_hp:
             self.hp = self.max_hp
 
     def take_damage(self, amount):
+        '''
+        Takes damage, checks for death, xp, and coins
+        '''
         results = []
         self.hp -= amount
 

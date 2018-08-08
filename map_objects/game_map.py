@@ -37,12 +37,17 @@ class GameMap:
         self.dungeon_level = dungeon_level
 
     def initialize_tiles(self):
+        '''
+        Initialize a 2D array of tiles
+        '''
         tiles = [[Tile(True) for y in range(self.height)] for x in range(self.width)]
 
         return tiles
 
     def create_room(self, room):
-        # go through the tiles in the rectangle and make them passable
+        '''
+        Digs out room, making tiles passible
+        '''
         for x in range(room.x1 + 1, room.x2):
             for y in range(room.y1 + 1, room.y2):
                 self.tiles[x][y].blocked = False
@@ -50,6 +55,9 @@ class GameMap:
 
     def make_map(self, max_rooms, room_min_size, room_max_size, map_width,
             map_height, player, entities):
+        '''
+        Creates map of current dungeon floor
+        '''
         rooms = []
         num_rooms = 0
 
@@ -60,32 +68,29 @@ class GameMap:
             # random width and height
             w = randint(room_min_size, room_max_size)
             h = randint(room_min_size, room_max_size)
-            # random position without going out of the boundaries of the map
+            # random pos in map boundaries
             x = randint(0, map_width - w - 1)
             y = randint(0, map_height - h - 1)
 
-            # "Rect" class makes rectangles easier to work with
+            # use rectangle room class
             new_room = Rect(x, y, w, h)
 
-            # run through the other rooms and see if they intersect with this one
+            # check for intersecting rooms
             for other_room in rooms:
                 if new_room.intersect(other_room):
                     break
 
             else:
-                # this means there are no intersections, so this room is valid
-
-                # "paint" it to the map's tiles
                 self.create_room(new_room)
 
-                # center coordinates of new room, will be useful later
+                # center coordinates of new room
                 (new_x, new_y) = new_room.center()
 
                 center_of_last_room_x = new_x
                 center_of_last_room_y = new_y
 
                 if num_rooms == 0:
-                    # this is the first room, where the player starts at
+                    # starting room
                     player.x = new_x
                     player.y = new_y
 
@@ -106,8 +111,8 @@ class GameMap:
                     entities.append(shopkeeper)
                     self.tiles[new_x+1][new_y+1].blocked = True
                 else:
-                    # all rooms after the first:
-                    # connect it to the previous room with a tunnel
+                    # all rooms after the first
+                    # connect to previous room with tunnels
                     '''
                     if num_rooms == 1:
                         #33% chance of generating a shop on second room
@@ -133,7 +138,7 @@ class GameMap:
                     # center coordinates of previous room
                     (prev_x, prev_y) = rooms[num_rooms - 1].center()
 
-                    # flip a coin (random number that is either 0 or 1)
+                    # random choice of tunnel
                     if randint(0, 1) == 1:
                         # first move horizontally, then vertically
                         self.create_h_tunnel(prev_x, new_x, prev_y)
@@ -144,10 +149,11 @@ class GameMap:
                         self.create_h_tunnel(prev_x, new_x, new_y)
 
                 self.place_entities(new_room, entities)
-                # finally, append the new room to the list
+                # append the new room to the list
                 rooms.append(new_room)
                 num_rooms += 1
 
+        # create stairs entity in center of last room
         stairs_component = Stairs(self.dungeon_level + 1)
         down_stairs = Entity(center_of_last_room_x, center_of_last_room_y, '>',
             libtcod.white, 'Stairs', render_order=RenderOrder.STAIRS,
@@ -155,21 +161,29 @@ class GameMap:
         entities.append(down_stairs)
 
     def create_h_tunnel(self, x1, x2, y):
+        '''
+        Digs out horizontal tunnel
+        '''
         for x in range(min(x1, x2), max(x1, x2) + 1):
             self.tiles[x][y].blocked = False
             self.tiles[x][y].block_sight = False
 
     def create_v_tunnel(self, y1, y2, x):
+        '''
+        Digs out vertical tunnel
+        '''
         for y in range(min(y1, y2), max(y1, y2) + 1):
             self.tiles[x][y].blocked = False
             self.tiles[x][y].block_sight = False
 
     def place_entities(self, room, entities):
+        '''
+        Places items or monsters in room
+        '''
         max_monsters_per_room = from_dungeon_level([[2, 1], [3, 4], [5, 6]],
             self.dungeon_level)
         max_items_per_room = from_dungeon_level([[1, 1], [2, 4]], self.dungeon_level)
         number_of_items = randint(0, max_items_per_room)
-        # Get a random number of monsters
         number_of_monsters = randint(0, max_monsters_per_room)
 
         monster_chances = {
@@ -254,13 +268,16 @@ class GameMap:
         }
 
         for i in range(number_of_monsters):
-            # Choose a random location in the room
+            # choose random location in room
             x = randint(room.x1 + 1, room.x2 - 1)
             y = randint(room.y1 + 1, room.y2 - 1)
 
             if not any([entity for entity in entities if entity.x == x and \
                     entity.y == y]):
                 monster_choice = random_choice_from_dict(monster_chances)
+                '''
+                All monsters available
+                '''
                 if monster_choice == 'orc':
                     fighter_component = Fighter(hp=20, defense=0, power=3, xp=35, coin=10)
                     ai_component = BasicMonster()
@@ -285,22 +302,24 @@ class GameMap:
             if not any([entity for entity in entities if entity.x == x and \
                     entity.y == y]):
                 item_choice = random_choice_from_dict(item_chances)
-
+                '''
+                All items available
+                '''
                 #POTION
                 if item_choice == 's_healing_potion':
                     item_component = Item(use_function=heal, amount=35)
                     item = Entity(x, y, '+', libtcod.Color(208, 15, 15),
-                        'Small Healing Potion (+35)', render_order=RenderOrder.ITEM,
+                        'Small Healing Potion (+35HP)', render_order=RenderOrder.ITEM,
                         item=item_component)
                 elif item_choice == 'm_healing_potion':
                     item_component = Item(use_function=heal, amount=70)
                     item = Entity(x, y, '+', libtcod.Color(220, 15, 15),
-                        'Medium Healing Potion (+70)', render_order=RenderOrder.ITEM,
+                        'Medium Healing Potion (+70HP)', render_order=RenderOrder.ITEM,
                         item=item_component)
                 elif item_choice == 'l_healing_potion':
                     item_component = Item(use_function=heal, amount=100)
                     item = Entity(x, y, '+', libtcod.Color(240, 10, 10),
-                        'Large Healing Potion (+100)', render_order=RenderOrder.ITEM,
+                        'Large Healing Potion (+100HP)', render_order=RenderOrder.ITEM,
                         item=item_component)
                 elif item_choice == 'full_healing_salve':
                     item_component = Item(use_function=heal, amount=800)
@@ -630,12 +649,18 @@ class GameMap:
                 entities.append(item)
 
     def is_blocked(self, x, y):
+        '''
+        Checks if (x,y) is blocked
+        '''
         if self.tiles[x][y].blocked:
             return True
 
         return False
 
     def next_floor(self, player, message_log, constants):
+        '''
+        Creates and goes to next floor in dungeon
+        '''
         self.dungeon_level += 1
         entities = [player]
 
@@ -644,6 +669,7 @@ class GameMap:
                     constants['room_max_size'], constants['map_width'],
                     constants['map_height'], player, entities)
 
+        # heals player by half their max health
         player.fighter.heal(player.fighter.max_hp // 2)
 
         message_log.add_message(Message(

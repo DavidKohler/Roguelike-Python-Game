@@ -21,13 +21,16 @@ class MessageLog:
         self.height = height
 
     def add_message(self, message):
-        # Split the message if necessary, among multiple lines
+        '''
+        Adds message to message log
+        '''
+        # splits message if necessary into multiple lines
         new_msg_lines = textwrap.wrap(message.text, self.width)
 
         for line in new_msg_lines:
-            # If the buffer is full, remove the first line to make room for the new one
+            # if buffer is full, remove first line to make room for new one
             if len(self.messages) == self.height:
                 del self.messages[0]
 
-            # Add the new line as a Message object, with the text and the color
+            # add new line as Message object
             self.messages.append(Message(line, message.color))

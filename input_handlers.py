@@ -2,11 +2,10 @@ import libtcodpy as libtcod
 
 from game_states import GameStates
 
-'''
-Handles all inputs
-'''
-
 def handle_keys(key, game_state):
+    '''
+    Determines key handler from game state
+    '''
     if game_state == GameStates.PLAYERS_TURN:
         return handle_player_turn_keys(key)
     elif game_state == GameStates.PLAYER_DEAD:
@@ -28,8 +27,11 @@ def handle_keys(key, game_state):
     return {}
 
 def handle_player_turn_keys(key):
+    '''
+    Basic keys for player turn
+    '''
     key_char = chr(key.c)
-    # Movement keys
+    # movement keys
     if key.vk == libtcod.KEY_UP or key_char == 'k':
         return {'move': (0, -1)}
     elif key.vk == libtcod.KEY_DOWN or key_char == 'j':
@@ -67,13 +69,16 @@ def handle_player_turn_keys(key):
         return {'fullscreen': True}
 
     elif key.vk == libtcod.KEY_ESCAPE:
-        # Exit the game
+        # exit the game
         return {'exit': True}
 
-    # No key was pressed
+    # no key was pressed
     return {}
 
 def handle_player_dead_keys(key):
+    '''
+    Keys for dead player
+    '''
     key_char = chr(key.c)
 
     if key_char == 'i':
@@ -83,12 +88,15 @@ def handle_player_dead_keys(key):
         # Alt+Enter: toggle full screen
         return {'fullscreen': True}
     elif key.vk == libtcod.KEY_ESCAPE:
-        # Exit the menu
+        # exit the menu
         return {'exit': True}
 
     return {}
 
 def handle_inventory_keys(key):
+    '''
+    Keys while in inventory
+    '''
     index = key.c - ord('a')
 
     if index >= 0:
@@ -104,12 +112,18 @@ def handle_inventory_keys(key):
     return {}
 
 def handle_targeting_keys(key):
+    '''
+    Keys while targeting
+    '''
     if key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
 
     return {}
 
 def handle_level_up_menu(key):
+    '''
+    Keys while in level up menu
+    '''
     if key:
         key_char = chr(key.c)
 
@@ -123,12 +137,18 @@ def handle_level_up_menu(key):
     return {}
 
 def handle_character_screen(key):
+    '''
+    Keys while in character screen
+    '''
     if key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
 
     return {}
 
 def handle_enter_shop(key):
+    '''
+    Keys while entering shop
+    '''
     key_char = chr(key.c)
 
     if key_char == 'a':
@@ -141,6 +161,9 @@ def handle_enter_shop(key):
     return {}
 
 def handle_selling(key):
+    '''
+    Keys while selling in shop
+    '''
     index = key.c - ord('a')
 
     if index >= 0:
@@ -150,12 +173,15 @@ def handle_selling(key):
         # Alt+Enter: toggle full screen
         return {'fullscreen': True}
     elif key.vk == libtcod.KEY_ESCAPE:
-        # Exit the menu
+        # exit the menu
         return {'exit': True}
 
     return {}
 
 def handle_buying(key):
+    '''
+    Keys while buying in shop
+    '''
     index = key.c - ord('a')
 
     if index >= 0:
@@ -165,12 +191,15 @@ def handle_buying(key):
         # Alt+Enter: toggle full screen
         return {'fullscreen': True}
     elif key.vk == libtcod.KEY_ESCAPE:
-        # Exit the menu
+        # exit the menu
         return {'exit': True}
 
     return {}
 
 def handle_main_menu(key):
+    '''
+    Keys while on main menu
+    '''
     key_char = chr(key.c)
 
     if key_char == 'a':
@@ -183,6 +212,9 @@ def handle_main_menu(key):
     return {}
 
 def handle_mouse(mouse):
+    '''
+    Handles mouse coordinates
+    '''
     (x, y) = (mouse.cx, mouse.cy)
 
     if mouse.lbutton_pressed:

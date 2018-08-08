@@ -11,6 +11,9 @@ class Inventory:
         self.items = []
 
     def add_item(self, item):
+        '''
+        Adds item to inventory
+        '''
         results = []
 
         if len(self.items) >= self.capacity:
@@ -29,6 +32,9 @@ class Inventory:
         return results
 
     def drop_item(self, item):
+        '''
+        Drops item from inventory on current position
+        '''
         results = []
 
         if self.owner.equipment.main_hand == item or self.owner.equipment.off_hand == item:
@@ -39,30 +45,38 @@ class Inventory:
 
         self.remove_item(item)
         results.append({'item_dropped': item, 'message': Message(
-            'You dropped the {0}'.format(item.name), libtcod.yellow)})
+            'You dropped the {0}'.format(item.name.split('(')[0]), libtcod.yellow)})
 
         return results
 
     def remove_item(self, item):
+        '''
+        Deletes item from inventory
+        '''
         self.items.remove(item)
 
     def use(self, item_entity, **kwargs):
+        '''
+        Uses item specified in inventory
+        '''
         results = []
 
         item_component = item_entity.item
 
         if item_component.use_function is None:
+            # equips item if equippable
             equippable_component = item_entity.equippable
-
             if equippable_component:
                 results.append({'equip': item_entity})
             else:
                 results.append({'message': Message('The {0} cannot be used'\
                     .format(item_entity.name.split('(')[0]), libtcod.yellow)})
         else:
+            # checks for targeting
             if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
                 results.append({'targeting': item_entity})
             else:
+                # uses the use function of item
                 kwargs = {**item_component.function_kwargs, **kwargs}
                 item_use_results = item_component.use_function(self.owner, **kwargs)
 

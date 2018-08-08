@@ -6,9 +6,9 @@ from components.item import Item
 from render_functions import RenderOrder
 
 class Entity:
-    """
-    A generic object to represent players, enemies, items, etc.
-    """
+    '''
+    Generic object to represent players, enemies, items, etc.
+    '''
     def __init__(self, x, y, char, color, name, blocks=False,
             render_order=RenderOrder.CORPSE, fighter=None, ai=None, item=None,
             inventory=None, stairs=None, level=None, equipment=None, equippable=None,
@@ -73,11 +73,16 @@ class Entity:
                 self.item.owner = self
 
     def move(self, dx, dy):
-        # Move the entity by a given amount
+        '''
+        Moves entity
+        '''
         self.x += dx
         self.y += dy
 
     def move_towards(self, target_x, target_y, game_map, entities):
+        '''
+        Moves entity towards a target
+        '''
         dx = target_x - self.x
         dy = target_y - self.y
         distance = math.sqrt(dx ** 2 + dy ** 2)
@@ -91,6 +96,9 @@ class Entity:
             self.move(dx, dy)
 
     def distance(self, x, y):
+        '''
+        Computes distance from self to (x,y)
+        '''
         return math.sqrt((x - self.x) ** 2 + (y - self.y) ** 2)
 
     def move_astar(self, target, entities, game_map):
@@ -141,11 +149,17 @@ class Entity:
         libtcod.path_delete(my_path)
 
     def distance_to(self, other):
+        '''
+        Computes distance from self to other entity
+        '''
         dx = other.x - self.x
         dy = other.y - self.y
         return math.sqrt(dx ** 2 + dy ** 2)
 
 def get_blocking_entities_at_location(entities, destination_x, destination_y):
+    '''
+    Returns entity that blocks destination (x,y)
+    '''
     for entity in entities:
         if entity.blocks and entity.x == destination_x and entity.y == destination_y and entity.name != 'Shopkeeper':
             return entity
