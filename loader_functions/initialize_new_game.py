@@ -19,7 +19,7 @@ from map_objects.game_map import GameMap
 
 from render_functions import RenderOrder
 
-DEBUG = 1
+DEBUG = 0
 
 def get_constants():
     '''

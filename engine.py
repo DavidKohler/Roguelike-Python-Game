@@ -38,7 +38,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
     while not libtcod.console_is_window_closed():
 
-        if game_map.dungeon_level == 2:
+        if game_map.dungeon_level == 51:
             end_game(player)
 
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS |
