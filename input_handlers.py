@@ -211,6 +211,17 @@ def handle_main_menu(key):
 
     return {}
 
+def handle_end_menu(key):
+    '''
+    Keys while on end menu
+    '''
+    key_char = chr(key.c)
+
+    if key_char == 'a' or  key.vk == libtcod.KEY_ESCAPE:
+        return {'exit': True}
+
+    return {}
+
 def handle_mouse(mouse):
     '''
     Handles mouse coordinates

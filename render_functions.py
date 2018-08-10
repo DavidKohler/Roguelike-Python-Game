@@ -118,7 +118,7 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute,
 
     # renders level up menu
     elif game_state == GameStates.LEVEL_UP:
-        level_up_menu(con, 'Level up! Choose a stat to raise:', player, 40,
+        level_up_menu(con, 'Level up! Choose a stat to raise:\n', player, 40,
             screen_width, screen_height)
 
     # renders character screen menu
@@ -127,7 +127,7 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute,
 
     # renders shop entrance menu
     elif game_state == GameStates.ENTER_SHOP:
-        enter_shop_menu(con, 'Welcome to the shop!', player, 40,
+        enter_shop_menu(con, 'Welcome to the shop!\n', player, 40,
             screen_width, screen_height)
 
     # renders buying menu for shop
@@ -135,12 +135,12 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute,
         for entity in entities:
             if entity.shopkeep:
                 entity_to_send = entity
-        buy_menu(con, 'Buy buy buy! Choose what to buy:', entity_to_send, 50,
+        buy_menu(con, '', entity_to_send, 50,
             screen_width, screen_height)
 
     # renders selling menu for shop
     elif game_state == GameStates.SELLING:
-        sell_menu(con, 'Sell sell sell! Choose what to sell:', player, 50,
+        sell_menu(con, '', player, 50,
             screen_width, screen_height)
 
 def clear_all(con, entities):

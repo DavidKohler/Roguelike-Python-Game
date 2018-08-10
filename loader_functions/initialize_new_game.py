@@ -19,7 +19,7 @@ from map_objects.game_map import GameMap
 
 from render_functions import RenderOrder
 
-DEBUG = 0
+DEBUG = 1
 
 def get_constants():
     '''
@@ -105,7 +105,8 @@ def get_game_variables(constants):
     # starting weapon
     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
     cashable_component = Cashable(10)
-    dagger = Entity(0, 0, '/', libtcod.orange, 'Rusty Dagger (+2P)',
+    #Rusty Dagger (+2P)
+    dagger = Entity(0, 0, '/', libtcod.orange, 'asdasdgasdfasdgasdfasdgasdgasdgasdg123123123123123123123123123123123123123123123123',
                     equippable=equippable_component, cashable=cashable_component)
     player.inventory.add_item(dagger)
     player.equipment.toggle_equip(dagger)

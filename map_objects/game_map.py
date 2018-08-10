@@ -100,7 +100,7 @@ class GameMap:
                     # all rooms after the first
                     # connect to previous room with tunnels
 
-                    if num_rooms == 1 and (randint(0, 2) == 1):
+                    if num_rooms == 1: #and (randint(0, 2) == 1):
                         #33% chance of generating a shop on second room
                         (prev_x, prev_y) = rooms[num_rooms - 1].center()
 

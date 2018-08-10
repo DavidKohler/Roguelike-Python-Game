@@ -10,12 +10,12 @@ from game_messages import Message
 
 from game_states import GameStates
 
-from input_handlers import handle_keys, handle_main_menu, handle_mouse
+from input_handlers import handle_keys, handle_main_menu, handle_mouse, handle_end_menu
 
 from loader_functions.initialize_new_game import get_constants, get_game_variables
 from loader_functions.data_loaders import load_game, save_game
 
-from menus import main_menu, message_box
+from menus import main_menu, message_box, end_menu
 
 from render_functions import clear_all, render_all
 
@@ -37,6 +37,10 @@ def play_game(player, entities, game_map, message_log, game_state, con,
     targeting_item = None
 
     while not libtcod.console_is_window_closed():
+
+        if game_map.dungeon_level == 2:
+            end_game(player)
+
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS |
             libtcod.EVENT_MOUSE, key, mouse)
 
@@ -231,7 +235,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
                             .format(entity.inventory.items[buy_index].name.split('(')[0],
                             item_cost), libtcod.blue))
                     else:
-                        message_log.add_message(Message('You don\'t have enough coins!',
+                        message_log.add_message(Message('Not enough coins!',
                             libtcod.yellow))
 
                     break
@@ -421,7 +425,7 @@ def main():
 
         if show_main_menu:
             main_menu(con, main_menu_background_image, constants['screen_width'],
-                      constants['screen_height'])
+                constants['screen_height'])
 
             if show_load_error_message:
                 message_box(con, 'No save game to load', 50, constants['screen_width'],
@@ -458,6 +462,40 @@ def main():
                 panel, constants)
 
             show_main_menu = True
+
+def end_game(player):
+    constants = get_constants()
+
+    con = libtcod.console_new(constants['screen_width'], constants['screen_height'])
+    panel = libtcod.console_new(constants['screen_width'], constants['panel_height'])
+
+    show_end_menu = True
+
+    # uses custom background image
+    end_menu_background_image = libtcod.image_load('./art/end_screen.png')
+
+    key = libtcod.Key()
+    mouse = libtcod.Mouse()
+
+    while not libtcod.console_is_window_closed():
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS | libtcod.EVENT_MOUSE,
+            key, mouse)
+
+        if show_end_menu:
+            end_menu(con, end_menu_background_image, player, constants['screen_width'],
+                      constants['screen_height'])
+
+            libtcod.console_flush()
+
+            action = handle_end_menu(key)
+
+            exit_game = action.get('exit')
+
+            if exit_game:
+                show_end_menu = False
+
+        else:
+            exit()
 
 if __name__ == '__main__':
     main()
