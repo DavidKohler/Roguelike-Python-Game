@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+#engine.py
+
+'''
+Author: David Kohler
+engine.py
+'''
 import libtcodpy as libtcod
 
 from death_functions import kill_monster, kill_player
