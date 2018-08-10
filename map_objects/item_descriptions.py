@@ -65,7 +65,7 @@ def get_item(item_choice, x, y):
             defense_bonus=6, power_bonus=6)
         cashable_component = Cashable(2000)
         item = Entity(x, y, 'n', libtcod.Color(114, 80, 13),
-            'Valkyrie Helm (+6D +6P)', equippable=equippable_component,
+            'Valkyrie Helm (+6D +6A)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'helm_of_awe':
         equippable_component = Equippable(EquipmentSlots.HELMET,
@@ -79,7 +79,7 @@ def get_item(item_choice, x, y):
             defense_bonus=12, power_bonus=5, max_hp_bonus=20)
         cashable_component = Cashable(6000)
         item = Entity(x, y, 'n', libtcod.Color(164, 154, 20),
-            'Hulidshjalmr (+12D +5P +20HP)', equippable=equippable_component,
+            'Hulidshjalmr (+12D +5A +20HP)', equippable=equippable_component,
             cashable=cashable_component)
     #CHESTPLATE
     elif item_choice == 'leather_chestplate':
@@ -115,14 +115,14 @@ def get_item(item_choice, x, y):
                 defense_bonus=8, power_bonus=6, max_hp_bonus=10)
             cashable_component = Cashable(4000)
             item = Entity(x, y, 'W', libtcod.Color(54, 45, 30),
-                'Tarnkappe (+8D +6P +10HP)', equippable=equippable_component,
+                'Tarnkappe (+8D +6A +10HP)', equippable=equippable_component,
                 cashable=cashable_component)
     elif item_choice == 'golden_coat':
             equippable_component = Equippable(EquipmentSlots.CHESTPLATE,
                 defense_bonus=12, power_bonus=5, max_hp_bonus=20)
             cashable_component = Cashable(6000)
             item = Entity(x, y, 'W', libtcod.Color(175, 144, 18),
-                'Golden Coat of Chainmail (+12D +5P +20HP)',
+                'Golden Coat of Chainmail (+12D +5A +20HP)',
                 equippable=equippable_component, cashable=cashable_component)
     #LEGGINGS
     elif item_choice == 'light_leggings':
@@ -158,7 +158,7 @@ def get_item(item_choice, x, y):
             defense_bonus=10, power_bonus=6, max_hp_bonus=10)
         cashable_component = Cashable(5000)
         item = Entity(x, y, 'U', libtcod.Color(152, 169, 2),
-            'Leggings of Odin (+10D +6P +10HP)', equippable=equippable_component,
+            'Leggings of Odin (+10D +6A +10HP)', equippable=equippable_component,
             cashable=cashable_component)
     #BOOTS
     elif item_choice == 'light_boots':
@@ -173,7 +173,7 @@ def get_item(item_choice, x, y):
             power_bonus=-10, defense_bonus=-10, max_hp_bonus=50)
         cashable_component = Cashable(50)
         item = Entity(x, y, 'b', libtcod.Color(149, 104, 26),
-            'Fresh Timbs (-10P -10D +50HP)', equippable=equippable_component,
+            'Fresh Timbs (-10D -10A +50HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'steel_boots':
         equippable_component = Equippable(EquipmentSlots.BOOTS,
@@ -223,7 +223,7 @@ def get_item(item_choice, x, y):
             defense_bonus=5, power_bonus=10, max_hp_bonus=10)
         cashable_component = Cashable(2000)
         item = Entity(x, y, '-', libtcod.Color(90, 90, 90),
-            'Megingjord (+5D +10P +10HP)', equippable=equippable_component,
+            'Megingjord (+5D +10A +10HP)', equippable=equippable_component,
             cashable=cashable_component)
     #RINGS
     elif item_choice == 'space_stone':
@@ -231,42 +231,42 @@ def get_item(item_choice, x, y):
             defense_bonus=1, power_bonus=1, max_hp_bonus=5)
         cashable_component = Cashable(1000)
         item = Entity(x, y, '*', libtcod.Color(35, 188, 212),
-            'Space Stone (+1D +1P +5HP)', equippable=equippable_component,
+            'Space Stone (+1D +1A +5HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'mind_stone':
         equippable_component = Equippable(EquipmentSlots.RING_2,
             defense_bonus=2, power_bonus=2, max_hp_bonus=5)
         cashable_component = Cashable(2000)
         item = Entity(x, y, '*', libtcod.Color(238, 224, 30),
-            'Mind Stone (+2D +2P +8HP)', equippable=equippable_component,
+            'Mind Stone (+2D +2A +8HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'reality_stone':
         equippable_component = Equippable(EquipmentSlots.RING_3,
             defense_bonus=4, power_bonus=4, max_hp_bonus=10)
         cashable_component = Cashable(3000)
         item = Entity(x, y, '*', libtcod.Color(223, 22, 22),
-            'Reality Stone (+4D +4P +10HP)', equippable=equippable_component,
+            'Reality Stone (+4D +4A +10HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'power_stone':
         equippable_component = Equippable(EquipmentSlots.RING_4,
             defense_bonus=6, power_bonus=6, max_hp_bonus=12)
         cashable_component = Cashable(4000)
         item = Entity(x, y, '*', libtcod.Color(118, 19, 168),
-            'Power Stone (+6D +6P +12HP)', equippable=equippable_component,
+            'Power Stone (+6D +6A +12HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'time_stone':
         equippable_component = Equippable(EquipmentSlots.RING_5,
             defense_bonus=7, power_bonus=7, max_hp_bonus=14)
         cashable_component = Cashable(5000)
         item = Entity(x, y, '*', libtcod.Color(19, 168, 39),
-            'Time Stone (+7D +7P +14HP)', equippable=equippable_component,
+            'Time Stone (+7D +7A +14HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'soul_stone':
         equippable_component = Equippable(EquipmentSlots.RING_6,
             defense_bonus=8, power_bonus=8, max_hp_bonus=16)
         cashable_component = Cashable(6000)
         item = Entity(x, y, '*', libtcod.Color(218, 149, 46),
-            'Soul Stone (+8D +8P +16HP)', equippable=equippable_component,
+            'Soul Stone (+8D +8A +16HP)', equippable=equippable_component,
             cashable=cashable_component)
     #OFF_HAND
     elif item_choice == 'wooden_shield':
@@ -295,14 +295,14 @@ def get_item(item_choice, x, y):
             defense_bonus=5, power_bonus=8)
         cashable_component = Cashable(2000)
         item = Entity(x, y, ']', libtcod.Color(88, 115, 214),
-            'Jotun Shield (+5D +8P)', equippable=equippable_component,
+            'Jotun Shield (+5D +8A)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'shield_of_hel':
         equippable_component = Equippable(EquipmentSlots.OFF_HAND,
             defense_bonus=8, power_bonus=2, max_hp_bonus=10)
         cashable_component = Cashable(3000)
         item = Entity(x, y, ']', libtcod.Color(165, 25, 40),
-            'Shield of Hel (+8D +2P +10HP)', equippable=equippable_component,
+            'Shield of Hel (+8D +2A +10HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'ullrs_shield':
         equippable_component = Equippable(EquipmentSlots.OFF_HAND,
@@ -316,7 +316,7 @@ def get_item(item_choice, x, y):
             defense_bonus=14, power_bonus=10, max_hp_bonus=15)
         cashable_component = Cashable(5500)
         item = Entity(x, y, ']', libtcod.Color(123, 148, 39),
-            'Svallin (+14D +10P +15HP)', equippable=equippable_component,
+            'Svallin (+14D +10A +15HP)', equippable=equippable_component,
             cashable=cashable_component)
     #MAIN_HAND
     elif item_choice == 'iron_sword':
@@ -324,98 +324,98 @@ def get_item(item_choice, x, y):
             power_bonus=3)
         cashable_component = Cashable(100)
         item = Entity(x, y, '/', libtcod.Color(97, 101, 82),
-            'Iron Sword (+3P)', equippable=equippable_component,
+            'Iron Sword (+3A)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'berserker_sword':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=4)
         cashable_component = Cashable(400)
         item = Entity(x, y, '/', libtcod.Color(50, 50, 50),
-            'Berserker Sword (+4P)', equippable=equippable_component,
+            'Berserker Sword (+4A)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'dwarven_axe':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=5, max_hp_bonus=5)
         cashable_component = Cashable(800)
         item = Entity(x, y, '/', libtcod.Color(54, 61, 119),
-            'Dwarven Axe (+5P +5HP)', equippable=equippable_component,
+            'Dwarven Axe (+5A +5HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'viking_halberd':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=6)
         cashable_component = Cashable(1200)
         item = Entity(x, y, '/', libtcod.Color(155, 85, 111),
-            'Viking Halberd (+6P)', equippable=equippable_component,
+            'Viking Halberd (+6A)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'laevateinn':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=7, defense_bonus=2)
         cashable_component = Cashable(1700)
         item = Entity(x, y, '/', libtcod.Color(38, 218, 233),
-            'Laevateinn (+7P +2D)', equippable=equippable_component,
+            'Laevateinn (+7A +2D)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'dainsleif':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=8, max_hp_bonus=10)
         cashable_component = Cashable(2200)
         item = Entity(x, y, '/', libtcod.Color(25, 144, 25),
-            'Dainsleif (+8P +10HP)', equippable=equippable_component,
+            'Dainsleif (+8A +10HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'skofnung':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=10)
         cashable_component = Cashable(2600)
         item = Entity(x, y, '/', libtcod.Color(32, 24, 38),
-            'Skofnung (+10P)', equippable=equippable_component,
+            'Skofnung (+10A)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'hrotti':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=12)
         cashable_component = Cashable(3200)
         item = Entity(x, y, '/', libtcod.Color(176, 192, 110),
-            'Hrotti (+12P)', equippable=equippable_component,
+            'Hrotti (+12A)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'ridill':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=4, defense_bonus=6, max_hp_bonus=30)
         cashable_component = Cashable(3800)
         item = Entity(x, y, '/', libtcod.Color(206, 206, 206),
-            'Ridill (+4P +6D +30HP)', equippable=equippable_component,
+            'Ridill (+4A +6D +30HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'gram':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=15, max_hp_bonus=15)
         cashable_component = Cashable(4500)
         item = Entity(x, y, '/', libtcod.Color(109, 72, 125),
-            'Gram (+15P +15HP)', equippable=equippable_component,
+            'Gram (+15A +15HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'mistilteinn':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=14, defense_bonus=10, max_hp_bonus=30)
         cashable_component = Cashable(5000)
         item = Entity(x, y, '/', libtcod.Color(40, 172, 35),
-            'Mistilteinn (+14P +10D +30HP)', equippable=equippable_component,
+            'Mistilteinn (+14A +10D +30HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'gungnir':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=20, defense_bonus=10)
         cashable_component = Cashable(6000)
         item = Entity(x, y, '/', libtcod.Color(5, 5, 5),
-            'Gungnir (+20P +10D)', equippable=equippable_component,
+            'Gungnir (+20A +10D)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'tyrfing':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=20, max_hp_bonus=50)
         cashable_component = Cashable(6000)
         item = Entity(x, y, '/', libtcod.Color(139, 152, 25),
-            'Tyrfing (+20P +50HP)', equippable=equippable_component,
+            'Tyrfing (+20A +50HP)', equippable=equippable_component,
             cashable=cashable_component)
     elif item_choice == 'mjolnir':
         equippable_component = Equippable(EquipmentSlots.MAIN_HAND,
             power_bonus=35)
         cashable_component = Cashable(7000)
         item = Entity(x, y, '/', libtcod.Color(235, 245, 0),
-            'Mjolnir (+35P)', equippable=equippable_component,
+            'Mjolnir (+35A)', equippable=equippable_component,
             cashable=cashable_component)
     #Scrolls
     elif item_choice == 'confusion_scroll':
@@ -424,14 +424,14 @@ def get_item(item_choice, x, y):
             'Left-click an enemy to confuse it, or right-click to cancel.',
             libtcod.light_cyan))
         cashable_component = Cashable(200)
-        item = Entity(x, y, '#', libtcod.light_pink, 'Confusion Scroll',
+        item = Entity(x, y, '#', libtcod.light_pink, 'Confusion Scroll ',
             render_order=RenderOrder.ITEM, item=item_component,
             cashable=cashable_component)
     elif item_choice == 'lightning_scroll':
         item_component = Item(use_function=cast_lightning, damage=40,
             maximum_range=5)
         cashable_component = Cashable(500)
-        item = Entity(x, y, '#', libtcod.yellow, 'Lightning Scroll',
+        item = Entity(x, y, '#', libtcod.yellow, 'Lightning Scroll ',
             render_order=RenderOrder.ITEM, item=item_component,
             cashable=cashable_component)
     elif item_choice == 'fireball_scroll':
@@ -440,7 +440,7 @@ def get_item(item_choice, x, y):
             'Left-click a target tile for the fireball, or right-click to cancel.',
             libtcod.light_cyan), damage=25, radius=3)
         cashable_component = Cashable(1000)
-        item = Entity(x, y, '#', libtcod.red, 'Fireball Scroll',
+        item = Entity(x, y, '#', libtcod.red, 'Fireball Scroll ',
             render_order=RenderOrder.ITEM, item=item_component,
             cashable=cashable_component)
     elif item_choice == 'mistletoe':
@@ -448,7 +448,7 @@ def get_item(item_choice, x, y):
             maximum_range=15)
         cashable_component = Cashable(1500)
         item = Entity(x, y, '#', libtcod.Color(40, 172, 35),
-            'Mistletoe Scroll', render_order=RenderOrder.ITEM,
+            'Mistletoe Scroll ', render_order=RenderOrder.ITEM,
             item=item_component, cashable=cashable_component)
     else:
         item_component = Item(use_function=cast_ragnarok, targeting=True,
@@ -456,7 +456,7 @@ def get_item(item_choice, x, y):
             'Left-click a target tile for Ragnarok, or right-click to cancel.',
             libtcod.light_cyan), damage=500, radius=20)
         cashable_component = Cashable(2500)
-        item = Entity(x, y, '#', libtcod.Color(5, 5, 5), 'Scroll of Ragnarok',
+        item = Entity(x, y, '#', libtcod.Color(5, 5, 5), 'Scroll of Ragnarok ',
             render_order=RenderOrder.ITEM, item=item_component,
             cashable=cashable_component)
 
