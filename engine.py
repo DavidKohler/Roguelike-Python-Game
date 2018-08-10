@@ -531,7 +531,7 @@ def end_game(player):
     show_end_menu = True
 
     # uses custom background image
-    end_menu_background_image = libtcod.image_load('./art/end_screen2.png')
+    end_menu_background_image = libtcod.image_load('./art/end_screen.png')
 
     key = libtcod.Key()
     mouse = libtcod.Mouse()
