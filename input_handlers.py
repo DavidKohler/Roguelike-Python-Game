@@ -24,6 +24,8 @@ def handle_keys(key, game_state):
         return handle_selling(key)
     elif game_state == GameStates.BUYING:
         return handle_buying(key)
+    elif game_state == GameStates.RULES:
+        return handle_rules_menu(key)
     return {}
 
 def handle_player_turn_keys(key):
@@ -62,10 +64,11 @@ def handle_player_turn_keys(key):
     elif key_char == 'c':
         return {'show_character_screen': True}
     elif key_char == 's':
-        return {'shop' : True}
+        return {'shop': True}
+    elif key_char == 'r':
+        return {'show_rules_screen': True}
 
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
+    if key.vk == libtcod.KEY_TAB:
         return {'fullscreen': True}
 
     elif key.vk == libtcod.KEY_ESCAPE:
@@ -84,8 +87,7 @@ def handle_player_dead_keys(key):
     if key_char == 'i':
         return {'show_inventory': True}
 
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
+    if key.vk == libtcod.KEY_TAB:
         return {'fullscreen': True}
     elif key.vk == libtcod.KEY_ESCAPE:
         # exit the menu
@@ -102,8 +104,7 @@ def handle_inventory_keys(key):
     if index >= 0:
         return {'inventory_index': index}
 
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
+    if key.vk == libtcod.KEY_TAB:
         return {'fullscreen': True}
     elif key.vk == libtcod.KEY_ESCAPE:
         # Exit the menu
@@ -117,6 +118,8 @@ def handle_targeting_keys(key):
     '''
     if key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
+    elif key.vk == libtcod.KEY_TAB:
+        return {'fullscreen': True}
 
     return {}
 
@@ -133,6 +136,8 @@ def handle_level_up_menu(key):
             return {'level_up': 'str'}
         elif key_char == 'c':
             return {'level_up': 'def'}
+        elif key.vk == libtcod.KEY_TAB:
+            return {'fullscreen': True}
 
     return {}
 
@@ -142,6 +147,8 @@ def handle_character_screen(key):
     '''
     if key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
+    elif key.vk == libtcod.KEY_TAB:
+        return {'fullscreen': True}
 
     return {}
 
@@ -157,6 +164,8 @@ def handle_enter_shop(key):
         return {'shop_buy': True}
     elif key_char == 'c' or  key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
+    elif key.vk == libtcod.KEY_TAB:
+        return {'fullscreen': True}
 
     return {}
 
@@ -169,8 +178,7 @@ def handle_selling(key):
     if index >= 0:
         return {'sell_index': index}
 
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
+    if key.vk == libtcod.KEY_TAB:
         return {'fullscreen': True}
     elif key.vk == libtcod.KEY_ESCAPE:
         # exit the menu
@@ -187,8 +195,7 @@ def handle_buying(key):
     if index >= 0:
         return {'buy_index': index}
 
-    if key.vk == libtcod.KEY_ENTER and key.lalt:
-        # Alt+Enter: toggle full screen
+    if key.vk == libtcod.KEY_TAB:
         return {'fullscreen': True}
     elif key.vk == libtcod.KEY_ESCAPE:
         # exit the menu
@@ -206,8 +213,25 @@ def handle_main_menu(key):
         return {'new_game': True}
     elif key_char == 'b':
         return {'load_game': True}
-    elif key_char == 'c' or  key.vk == libtcod.KEY_ESCAPE:
+    elif key_char == 'c':
+        return {'rules_menu': True}
+    elif key_char == 'd' or  key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
+    elif key.vk == libtcod.KEY_TAB:
+        return {'fullscreen': True}
+
+    return {}
+
+def handle_rules_menu(key):
+    '''
+    Keys while on rules menu
+    '''
+    key_char = chr(key.c)
+
+    if key_char == 'a' or  key.vk == libtcod.KEY_ESCAPE:
+        return {'exit': True}
+    elif key.vk == libtcod.KEY_TAB:
+        return {'fullscreen': True}
 
     return {}
 
@@ -219,6 +243,8 @@ def handle_end_menu(key):
 
     if key_char == 'a' or  key.vk == libtcod.KEY_ESCAPE:
         return {'exit': True}
+    elif key.vk == libtcod.KEY_TAB:
+        return {'fullscreen': True}
 
     return {}
 

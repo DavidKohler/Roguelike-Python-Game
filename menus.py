@@ -122,8 +122,66 @@ def main_menu(con, background_image, screen_width, screen_height):
     libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height - 2) - 1,
         libtcod.BKGND_NONE, libtcod.CENTER, 'BY DAVID KOHLER')
 
-    menu(con, '', ['NEW GAME', 'CONTINUE', 'QUIT'], 24,
-        screen_width, screen_height + 4)
+    menu(con, '', ['NEW GAME', 'CONTINUE', 'RULES', 'QUIT'], 24,
+        screen_width, screen_height + 5)
+
+def rules_menu(con, background_image, screen_width, screen_height):
+    '''
+    Creates Rules Menu
+    '''
+    libtcod.image_blit_2x(background_image, 0, 0, 0)
+
+    libtcod.console_set_default_foreground(0, libtcod.black)
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 20,
+        libtcod.BKGND_NONE, libtcod.CENTER, 'RULES')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 16,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'WELCOME TO DESCENT INTO JOTUNHEIM, A ROGUELIKE CREATED BY DAVID KOHLER')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 14,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'YOU ARE A TREASURE HUNTER EXPLORING JOTUNHEIM FOR A SECRET TREASURE TROVE')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 12,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'ACCORDING TO LEGEND, THE TREASURE IS HIDDEN 50 STORIES UNDERNEATH THE REALM')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 10,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'MAKE YOUR WAY THRU 50 FLOORS OF RANDOM DUNGEONS TO REACH YOUR REWARD ')
+
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 6,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'USE THE ARROW KEYS TO MOVE AND ATTACK (OR USE STANDARD VIM CONTROLS)')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 4,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'USE THE Y, U, B, N KEYS FOR DIAGONAL MOVEMENT AND ATTACK (VIM STANDARD)')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 2,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'USE I TO ENTER INVENTORY, D TO DROP ITEMS FROM INVENTORY, R TO SEE RULES')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2),
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'G TO GRAB ITEMS, C TO SEE CHARACTER INFO, Z TO WAIT AND PASS YOUR TURN')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) + 2,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'TAB FOR FULLSCREEN, HOVER WITH MOUSE TO SEE ITEM OR MONSTER NAMES')
+
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) + 6,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'THE < ICON INDICATES STAIRS. PRESS ENTER WHILE ON THE ICON TO GO TO NEXT FLOOR')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) + 8,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'THE $ ICON INDICATES A SHOP. PRESS S WHILE ON THE ICON TO ENTER SHOP MENU')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) + 10,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'THE +, #, n, W, U, b, -, *, ], / ICONS ARE ITEMS. ENTER INVENTORY TO EQUIP')
+
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) + 14,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'ANYTHING ELSE IS AN ENEMY THAT WANTS YOU DEAD')
+    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) + 16,
+        libtcod.BKGND_NONE, libtcod.CENTER,
+        'GOOD LUCK')
+
+    menu(con, '', ['RETURN'], 24,
+        screen_width, screen_height + 42)
 
 def end_menu(con, background_image, player, screen_width, screen_height):
     '''
@@ -131,32 +189,42 @@ def end_menu(con, background_image, player, screen_width, screen_height):
     '''
     libtcod.image_blit_2x(background_image, 0, 0, 0)
 
-    libtcod.console_set_default_foreground(0, libtcod.light_yellow)
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 16,
+    # create off-screen console that represents menu window
+    window = libtcod.console_new(screen_width - 20, screen_height - 20)
+
+    libtcod.console_set_default_foreground(0, libtcod.white)
+    libtcod.console_set_default_foreground(window, libtcod.white)
+
+    x = int(screen_width / 2)
+    y = int(screen_height / 2)
+
+    libtcod.console_print_ex(window, x - 15, y - 23,
         libtcod.BKGND_NONE, libtcod.CENTER, 'CONGRATULATIONS')
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 10,
+    libtcod.console_print_ex(window, x - 15, y - 18,
         libtcod.BKGND_NONE, libtcod.CENTER, 'AFTER 50 DANGEROUS FLOORS OF MONSTERS AND')
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 8,
+    libtcod.console_print_ex(window, x - 15, y - 16,
         libtcod.BKGND_NONE, libtcod.CENTER, 'DEATH, YOU FINALLY REACH THE CENTER OF')
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 6,
+    libtcod.console_print_ex(window, x - 15, y - 14,
         libtcod.BKGND_NONE, libtcod.CENTER, 'JOTUNHEIM. BEFORE YOU, LIE UNIMAGINABLE')
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 4,
+    libtcod.console_print_ex(window, x - 15, y - 12,
         libtcod.BKGND_NONE, libtcod.CENTER, 'TREASURES AND WEALTH - RICHES THE LIKES')
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 2,
+    libtcod.console_print_ex(window, x - 15, y - 10,
         libtcod.BKGND_NONE, libtcod.CENTER, 'OF WHICH NO ONE IN THE NINE REALMS HAS')
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2),
+    libtcod.console_print_ex(window, x - 15, y - 8,
         libtcod.BKGND_NONE, libtcod.CENTER, 'EVER SEEN. AND THEY ALL BELONG TO YOU NOW...')
 
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) + 5,
+    libtcod.console_print_ex(window, x - 15, y - 4,
         libtcod.BKGND_NONE, libtcod.CENTER, 'THANK YOU FOR PLAYING')
 
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height - 2) - 2,
+    libtcod.console_print_ex(0, x, int(screen_height - 2) - 2,
         libtcod.BKGND_NONE, libtcod.CENTER, 'DESCENT INTO JOTUNHEIM')
-    libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height - 2),
+    libtcod.console_print_ex(0, x, int(screen_height - 2),
         libtcod.BKGND_NONE, libtcod.CENTER, 'BY DAVID KOHLER')
 
+    libtcod.console_blit(window, 0, 0, 50, 25, 0, x - 25, y - 20, 1.0, 0.7)
+
     menu(con, '', ['QUIT'], 24,
-        screen_width, screen_height + 17)
+        screen_width, screen_height + 20)
 
 def level_up_menu(con, header, player, menu_width, screen_width, screen_height):
     '''

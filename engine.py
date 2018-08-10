@@ -10,12 +10,12 @@ from game_messages import Message
 
 from game_states import GameStates
 
-from input_handlers import handle_keys, handle_main_menu, handle_mouse, handle_end_menu
+from input_handlers import handle_keys, handle_main_menu, handle_mouse, handle_rules_menu, handle_end_menu
 
 from loader_functions.initialize_new_game import get_constants, get_game_variables
 from loader_functions.data_loaders import load_game, save_game
 
-from menus import main_menu, message_box, end_menu
+from menus import main_menu, message_box, rules_menu, end_menu
 
 from render_functions import clear_all, render_all
 
@@ -38,7 +38,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
 
     while not libtcod.console_is_window_closed():
 
-        if game_map.dungeon_level == 51:
+        if game_map.dungeon_level == 2:
             end_game(player)
 
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS |
@@ -72,6 +72,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
         take_stairs = action.get('take_stairs')
         level_up = action.get('level_up')
         show_character_screen = action.get('show_character_screen')
+        show_rules_screen = action.get('show_rules_screen')
         shop = action.get('shop')
         shop_sell = action.get('shop_sell')
         shop_buy = action.get('shop_buy')
@@ -173,6 +174,11 @@ def play_game(player, entities, game_map, message_log, game_state, con,
             previous_game_state = game_state
             game_state = GameStates.CHARACTER_SCREEN
 
+        # player opens rules screen
+        if show_rules_screen:
+            previous_game_state = game_state
+            game_state = GameStates.RULES
+
         # player tries to target
         if game_state == GameStates.TARGETING:
             if left_click:
@@ -243,7 +249,7 @@ def play_game(player, entities, game_map, message_log, game_state, con,
         # exit menu or game
         if exit:
             if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY,
-                    GameStates.CHARACTER_SCREEN):
+                    GameStates.CHARACTER_SCREEN, GameStates.RULES):
                 game_state = previous_game_state
             elif game_state == GameStates.TARGETING:
                 player_turn_results.append({'targeting_cancelled': True})
@@ -437,7 +443,13 @@ def main():
 
             new_game = action.get('new_game')
             load_saved_game = action.get('load_game')
+            rules_menu = action.get('rules_menu')
             exit_game = action.get('exit')
+            fullscreen = action.get('fullscreen')
+
+            # toggle fullscreen
+            if fullscreen:
+                libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
 
             if show_load_error_message and (new_game or load_saved_game or exit_game):
                 show_load_error_message = False
@@ -453,6 +465,8 @@ def main():
                     show_main_menu = False
                 except FileNotFoundError:
                     show_load_error_message = True
+            elif rules_menu:
+                show_rules()
             elif exit_game:
                 break
 
@@ -463,7 +477,52 @@ def main():
 
             show_main_menu = True
 
+def show_rules():
+    '''
+    Shows Rules
+    '''
+    constants = get_constants()
+
+    con = libtcod.console_new(constants['screen_width'], constants['screen_height'])
+    panel = libtcod.console_new(constants['screen_width'], constants['panel_height'])
+
+    show_rules_menu = True
+
+    # uses custom background image
+    rules_menu_background_image = libtcod.image_load('./art/rules_background.png')
+
+    key = libtcod.Key()
+    mouse = libtcod.Mouse()
+
+    while not libtcod.console_is_window_closed():
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS | libtcod.EVENT_MOUSE,
+            key, mouse)
+
+        if show_rules_menu:
+            rules_menu(con, rules_menu_background_image, constants['screen_width'],
+                      constants['screen_height'])
+
+            libtcod.console_flush()
+
+            action = handle_rules_menu(key)
+
+            exit_game = action.get('exit')
+            fullscreen = action.get('fullscreen')
+
+            # toggle fullscreen
+            if fullscreen:
+                libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
+
+            if exit_game:
+                show_rules_menu = False
+
+        else:
+            return True
+
 def end_game(player):
+    '''
+    Shows End Game screen
+    '''
     constants = get_constants()
 
     con = libtcod.console_new(constants['screen_width'], constants['screen_height'])
@@ -472,7 +531,7 @@ def end_game(player):
     show_end_menu = True
 
     # uses custom background image
-    end_menu_background_image = libtcod.image_load('./art/end_screen.png')
+    end_menu_background_image = libtcod.image_load('./art/end_screen2.png')
 
     key = libtcod.Key()
     mouse = libtcod.Mouse()
@@ -490,6 +549,11 @@ def end_game(player):
             action = handle_end_menu(key)
 
             exit_game = action.get('exit')
+            fullscreen = action.get('fullscreen')
+
+            # toggle fullscreen
+            if fullscreen:
+                libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
 
             if exit_game:
                 show_end_menu = False

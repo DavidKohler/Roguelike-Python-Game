@@ -4,7 +4,7 @@ from enum import Enum
 
 from game_states import GameStates
 
-from menus import character_screen, inventory_menu, level_up_menu, enter_shop_menu, sell_menu, buy_menu
+from menus import character_screen, inventory_menu, level_up_menu, enter_shop_menu, sell_menu, buy_menu, rules_menu
 
 class RenderOrder(Enum):
     '''
@@ -142,6 +142,12 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute,
     elif game_state == GameStates.SELLING:
         sell_menu(con, '', player, 50,
             screen_width, screen_height)
+
+    # renders rules screen
+    elif game_state == GameStates.RULES:
+        # open background image
+        rules_background = libtcod.image_load('./art/rules_background.png')
+        rules_menu(player, rules_background, screen_width, screen_height)
 
 def clear_all(con, entities):
     '''

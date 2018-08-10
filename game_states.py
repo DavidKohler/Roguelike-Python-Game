@@ -15,3 +15,4 @@ class GameStates(Enum):
     ENTER_SHOP = 9
     SELLING = 10
     BUYING = 11
+    RULES = 12
