@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-#engine.py
-
 '''
 Author: David Kohler
 engine.py
