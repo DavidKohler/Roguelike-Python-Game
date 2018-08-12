@@ -16,3 +16,4 @@ class EquipmentSlots(Enum):
     RING_3 = 10
     RING_4 = 11
     RING_5 = 12
+    RING_6 = 13

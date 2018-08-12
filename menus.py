@@ -104,7 +104,7 @@ def inventory_menu(con, header, player, inventory_width, screen_width, screen_he
             elif player.equipment.ring_5 == item:
                 options.append('{0} (fifth finger)'.format(item.name))
             elif player.equipment.ring_6 == item:
-                options.append('{0} (on hand)'.format(item.name))
+                options.append('{0} (in hand)'.format(item.name))
             else:
                 options.append(item.name)
 
