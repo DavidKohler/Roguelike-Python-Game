@@ -16,6 +16,7 @@ and even the theme.
 1. Copy the repository 
 2. Make sure you have Python version 3.6 or later and Homebrew installed
 3. Run:
+
 `brew install mercurial`
 
 `pip install tdl`
@@ -28,6 +29,12 @@ and even the theme.
 2. Could also run `engine.py` from IDE
 
 For rules of game, when game is run, press 'c' to go to the rules page
+
+## Example
+
+Below is a screenshot of an example dungeon floor in the game window
+
+![Dungeon Floor](ExampleFloor.png)
 
 ## Authors
 
